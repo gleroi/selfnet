@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selfnet", "Selfnet\Selfnet.csproj", "{10BF9B3A-44D5-446C-939E-615EFE448643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selfnet.Tests", "Selfnet.Tests\Selfnet.Tests.csproj", "{1AE1DA80-EE0F-4D46-B5B4-6CEEF1ED7424}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10BF9B3A-44D5-446C-939E-615EFE448643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10BF9B3A-44D5-446C-939E-615EFE448643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10BF9B3A-44D5-446C-939E-615EFE448643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10BF9B3A-44D5-446C-939E-615EFE448643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AE1DA80-EE0F-4D46-B5B4-6CEEF1ED7424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AE1DA80-EE0F-4D46-B5B4-6CEEF1ED7424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AE1DA80-EE0F-4D46-B5B4-6CEEF1ED7424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AE1DA80-EE0F-4D46-B5B4-6CEEF1ED7424}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
