@@ -12,12 +12,14 @@ namespace Selfnet.Tests
         [Fact]
         public async void Login_ShouldWork()
         {
+            Context.HttpGetReturns("login", "{'success':true}");
+
             var opts = new ConnectionOptions()
             {
-                Host = "",
+                Host = "nostromo.myds.me",
                 Base = "selfoss",
-                Username = "",
-                Password = "",
+                Username = "gleroi",
+                Password = "cXVa2I0L",
             };
             var api = new SelfossApi(opts);
             var result = await api.Login();
