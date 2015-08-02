@@ -32,6 +32,11 @@ namespace Selfnet
             {
                 var str = await resp.Content.ReadAsStringAsync();
                 var json = JsonConvert.DeserializeObject<JObject>(str);
+                JToken token;
+                if (json.TryGetValue("success", out token))
+                {
+                    return token.Value<bool>();
+                }
             }
             return false;
         }
