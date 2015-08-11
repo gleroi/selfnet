@@ -9,17 +9,19 @@ namespace Selfnet.Tests
 {
     static class Context
     {
-        private static Mock<IHttpGateway> http;
         private static SelfossApi api;
+
+        public static ConnectionOptions Options;
+
+        public static readonly HttpGatewayFake Http = new HttpGatewayFake();
 
         public static SelfossApi Api()
         {
-            return null;
-        }
-
-        public static void HttpGetReturns(string login, string successTrue)
-        {
-            throw new NotImplementedException();
+            if (api == null)
+            {
+                api = new SelfossApi(Options, Http);
+            }
+            return api;
         }
     }
 }

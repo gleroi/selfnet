@@ -8,15 +8,15 @@ namespace Selfnet
 {
     internal interface IHttpGateway
     {
-        Task<JObject> Get(UriBuilder url);
+        Task<JObject> Get(string url);
     }
 
     internal class HttpGateway : IHttpGateway
     {
-        public async Task<JObject> Get(UriBuilder url)
+        public async Task<JObject> Get(string url)
         {
             var http = new HttpClient();
-            var resp = await http.GetAsync(url.Uri);
+            var resp = await http.GetAsync(url);
             if (resp.IsSuccessStatusCode)
             {
                 var str = await resp.Content.ReadAsStringAsync();

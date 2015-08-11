@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Selfnet.Tests
@@ -12,17 +13,21 @@ namespace Selfnet.Tests
         [Fact]
         public async void Login_ShouldWork()
         {
-            Context.HttpGetReturns("login", "{'success':true}");
+            Context.Http.GetReturns("{ 'success': true }");
 
-            var opts = new ConnectionOptions()
+            Context.Options = new ConnectionOptions()
             {
                 Host = "nostromo.myds.me",
                 Base = "selfoss",
-                Username = "gleroi",
-                Password = "cXVa2I0L",
+                Username = "paul",
+                Password = "mlkpoim",
             };
-            var api = new SelfossApi(opts);
+
+            var api = Context.Api();
+
             var result = await api.Login();
+
+            Assert.True(result);
         }
     }
 }

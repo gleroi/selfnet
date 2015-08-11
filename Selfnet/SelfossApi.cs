@@ -40,7 +40,7 @@ namespace Selfnet
         {
             var url = BuildUrl("login");
             url.Query = "username=" + Options.Username + "&" + "password=" + Options.Password;
-            var json = await this.http.Get(url);
+            var json = await this.http.Get(url.Uri.AbsoluteUri);
             JToken token;
             return json.TryGetValue("success", out token) && token.Value<bool>();
         }
