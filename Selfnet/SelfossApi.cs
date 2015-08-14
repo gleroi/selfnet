@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -30,17 +31,22 @@ namespace Selfnet
         {
         }
 
-        private UriBuilder BuildUrl(string path)
+        private UriBuilder BuildUrl(string path, string query = null)
         {
-            var url = BuildRoot(Options);
+            var url = BuildRoot(Options, query);
             url.Path = Options.Base + "/" + path;
             return url;
         }
 
-        private UriBuilder BuildRoot(ConnectionOptions options)
+        private UriBuilder BuildRoot(ConnectionOptions options, string query = null)
         {
             var url = new UriBuilder(options.Scheme, options.Host, options.Port);
-            url.Query = "username=" + Options.Username + "&" + "password=" + Options.Password;
+            string login = "username=" + Options.Username + "&" + "password=" + Options.Password;
+            if (!String.IsNullOrEmpty(query))
+            {
+                login += "&" + query;
+            }
+            url.Query = login;
             return url;
         }
 
@@ -55,6 +61,17 @@ namespace Selfnet
         public async Task<IEnumerable<Item>> Items()
         {
             var url = BuildUrl("items");
+            var json = await http.Get(url.Uri.AbsoluteUri);
+            var result = json.ToObject<List<Item>>();
+            return result;
+        }
+
+        public async Task<IEnumerable<Item>> Items(ItemsFilter filter)
+        {
+            var parameters = filter.AsPairs();
+            var query = String.Join("&", parameters.Select(pair => pair.Key + "=" + pair.Value));
+            var url = BuildUrl("items", query);
+
             var json = await http.Get(url.Uri.AbsoluteUri);
             var result = json.ToObject<List<Item>>();
             return result;
