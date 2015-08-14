@@ -23,11 +23,11 @@ namespace Selfnet.Tests
 
         public int GetCounter { get; private set; }
 
-        public Task<JObject> Get(string url)
+        public Task<JContainer> Get(string url)
         {
             var response = this.GetResponses[this.GetCounter];
             this.GetCounter += 1;
-            return Task<JObject>.FromResult(response);
+            return Task<JContainer>.FromResult(response as JContainer);
         }
     }
 }

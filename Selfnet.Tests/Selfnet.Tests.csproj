@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Context.cs" />
     <Compile Include="HttpGatewayFake.cs" />
+    <Compile Include="ItemsTests.cs" />
     <Compile Include="LoginTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

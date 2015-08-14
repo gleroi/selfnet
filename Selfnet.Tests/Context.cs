@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
-
-namespace Selfnet.Tests
+﻿namespace Selfnet.Tests
 {
-    static class Context
+    internal static class Context
     {
         private static SelfossApi api;
 
-        public static ConnectionOptions Options;
+        public static ConnectionOptions Options = new ConnectionOptions
+        {
+            Host = "nostromo.myds.me",
+            Base = "selfoss",
+            Username = "gleroi",
+            Password = "cXVa2I0L"
+        };
 
         public static readonly HttpGatewayFake Http = new HttpGatewayFake();
 
@@ -19,7 +18,8 @@ namespace Selfnet.Tests
         {
             if (api == null)
             {
-                api = new SelfossApi(Options, Http);
+                //api = new SelfossApi(Options, Http);
+                api = new SelfossApi(Options);
             }
             return api;
         }
