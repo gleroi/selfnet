@@ -76,5 +76,11 @@ namespace Selfnet
             var result = json.ToObject<List<Item>>();
             return result;
         }
+
+        public async Task<bool> MarkRead(Status status, params int[] ids)
+        {
+            var url = BuildUrl("mark");
+            var json = await http.Post(url.Uri.AbsoluteUri, new KeyValuePair<string, object>("ids", ids));
+        }
     }
 }
