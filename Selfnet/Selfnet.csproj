@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BaseApi.cs" />
     <Compile Include="ConnectionOptions.cs" />
     <Compile Include="HttpGateway.cs" />
     <Compile Include="Item.cs" />
