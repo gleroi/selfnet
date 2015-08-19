@@ -52,5 +52,16 @@ namespace Selfnet.Tests
 
             Assert.True(result);
         }
+
+        [Fact]
+        public async void MarAllkRead_ShouldWork()
+        {
+            Context.Http.PostReturns("{ 'success': true }");
+
+            var api = Context.Api();
+            var result = await api.MarkAllRead(1846, 1845, 1844, 1843);
+
+            Assert.True(result);
+        }
     }
 }

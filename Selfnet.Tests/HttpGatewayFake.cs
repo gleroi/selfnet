@@ -45,5 +45,12 @@ namespace Selfnet.Tests
             this.PostCounter += 1;
             return Task.FromResult(response);
         }
+
+        public Task<JContainer> Post(string url, IEnumerable<KeyValuePair<string, string>> parameters)
+        {
+            var response = this.PostResponses[this.PostCounter];
+            this.PostCounter += 1;
+            return Task.FromResult(response);
+        }
     }
 }

@@ -89,6 +89,14 @@ namespace Selfnet
             return this.ReadSuccess(json);
         }
 
+        public async Task<bool> MarkAllRead(params int[] ids)
+        {
+            var url = BuildUrl("mark");
+            var parameters = ids.Select(id => new KeyValuePair<string, string>("ids[]", id.ToString())).ToList();
+            var json = await http.Post(url.Uri.AbsoluteUri, parameters);
+            return this.ReadSuccess(json);
+        }
+
         public async Task<bool> MarkUnread(int id)
         {
             var url = BuildUrl("unmark/" + id);
