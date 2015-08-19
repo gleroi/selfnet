@@ -50,12 +50,17 @@ namespace Selfnet
             return url;
         }
 
+        private bool ReadSuccess(JContainer json)
+        {
+            JToken token;
+            return json.ToObject<JObject>().TryGetValue("success", out token) && token.Value<bool>();
+        }
+
         public async Task<bool> Login()
         {
             var url = BuildUrl("login");
             var json = await http.Get(url.Uri.AbsoluteUri);
-            JToken token;
-            return json.ToObject<JObject>().TryGetValue("success", out token) && token.Value<bool>();
+            return this.ReadSuccess(json);
         }
 
         public async Task<IEnumerable<Item>> Items()
@@ -77,10 +82,32 @@ namespace Selfnet
             return result;
         }
 
-        public async Task<bool> MarkRead(Status status, params int[] ids)
+        public async Task<bool> MarkRead(int id)
         {
-            var url = BuildUrl("mark");
-            var json = await http.Post(url.Uri.AbsoluteUri, new KeyValuePair<string, object>("ids", ids));
+            var url = BuildUrl("mark/" + id);
+            var json = await http.Post(url.Uri.AbsoluteUri);
+            return this.ReadSuccess(json);
+        }
+
+        public async Task<bool> MarkUnread(int id)
+        {
+            var url = BuildUrl("unmark/" + id);
+            var json = await http.Post(url.Uri.AbsoluteUri);
+            return this.ReadSuccess(json);
+        }
+
+        public async Task<bool> MarkStarred(int id)
+        {
+            var url = BuildUrl("starr/" + id);
+            var json = await http.Post(url.Uri.AbsoluteUri);
+            return this.ReadSuccess(json);
+        }
+
+        public async Task<bool> MarkUnstarred(int id)
+        {
+            var url = BuildUrl("unstarr/" + id);
+            var json = await http.Post(url.Uri.AbsoluteUri);
+            return this.ReadSuccess(json);
         }
     }
 }

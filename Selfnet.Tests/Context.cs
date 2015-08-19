@@ -7,7 +7,7 @@
         public static ConnectionOptions Options = new ConnectionOptions
         {
             Host = "",
-            Base = "selfoss",
+            Base = "",
             Username = "",
             Password = ""
         };

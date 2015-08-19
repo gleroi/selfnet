@@ -9,7 +9,7 @@ namespace Selfnet
     internal interface IHttpGateway
     {
         Task<JContainer> Get(string url);
-        Task<JContainer> Post(string url, params KeyValuePair<string, object>[] parameters);
+        Task<JContainer> Post(string url);
     }
 
     internal class HttpGateway : IHttpGateway
@@ -26,16 +26,10 @@ namespace Selfnet
             return json;
         }
 
-        public async Task<JContainer> Post(string url, params KeyValuePair<string, object>[] parameters)
+        public async Task<JContainer> Post(string url)
         {
             var http = new HttpClient();
             var req = new HttpRequestMessage(HttpMethod.Post, url);
-            var content = new MultipartFormDataContent();
-            foreach (var parameter in parameters)
-            {
-                content.Add(new StringContent(parameter.Value.ToString()), parameter.Key);
-            }
-            req.Content = content;
             var resp = await http.SendAsync(req);
             resp.EnsureSuccessStatusCode();
             var str = await resp.Content.ReadAsStringAsync();

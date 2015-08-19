@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangeStatusTests.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="HttpGatewayFake.cs" />
     <Compile Include="ItemsTests.cs" />
