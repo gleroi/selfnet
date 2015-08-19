@@ -12,7 +12,7 @@ namespace Selfnet.Tests
             Context.Http.PostReturns("{ 'success': true }");
 
             var api = Context.Api();
-            var result = await api.MarkRead(1846);
+            var result = await api.Items.MarkRead(1846);
 
             Assert.True(result);
         }
@@ -23,7 +23,7 @@ namespace Selfnet.Tests
             Context.Http.PostReturns("{ 'success': true }");
 
             var api = Context.Api();
-            var result = await api.MarkUnread(1846);
+            var result = await api.Items.MarkUnread(1846);
 
             Assert.True(result);
         }
@@ -34,7 +34,7 @@ namespace Selfnet.Tests
             Context.Http.PostReturns("{ 'success': true }");
 
             var api = Context.Api();
-            var result = await api.MarkStarred(1846);
+            var result = await api.Items.MarkStarred(1846);
 
             Assert.True(result);
         }
@@ -45,7 +45,7 @@ namespace Selfnet.Tests
             Context.Http.PostReturns("{ 'success': true }");
 
             var api = Context.Api();
-            var result = await api.MarkUnstarred(1846);
+            var result = await api.Items.MarkUnstarred(1846);
 
             Assert.True(result);
         }
@@ -56,7 +56,7 @@ namespace Selfnet.Tests
             Context.Http.PostReturns("{ 'success': true }");
 
             var api = Context.Api();
-            var result = await api.MarkAllRead(1846, 1845, 1844, 1843);
+            var result = await api.Items.MarkAllRead(1846, 1845, 1844, 1843);
 
             Assert.True(result);
         }

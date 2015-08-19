@@ -38,6 +38,7 @@
     <Compile Include="ConnectionOptions.cs" />
     <Compile Include="HttpGateway.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="ItemsApi.cs" />
     <Compile Include="ItemsFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelfossApi.cs" />
