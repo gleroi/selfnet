@@ -13,16 +13,16 @@ namespace Selfnet
 
         private readonly IHttpGateway http;
 
-        private readonly IList<JsonConverter> Converters;
+        private readonly IList<JsonConverter> converters;
 
         internal SelfossApi(ConnectionOptions opts, IHttpGateway http)
         {
+            this.Options = opts;
             this.http = http;
-            Options = opts;
-            Converters = new List<JsonConverter> { new SelfossBoolConverter() };
+            this.converters = new List<JsonConverter> { new SelfossBoolConverter() };
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
-                Converters = Converters
+                Converters = this.converters
             };
         }
 
