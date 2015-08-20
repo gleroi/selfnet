@@ -12,11 +12,11 @@ namespace Selfnet
             : base(opts, http)
         { }
 
-        public async Task<IEnumerable<Tag>> Get()
+        public async Task<IEnumerable<TagDescriptor>> Get()
         {
             var url = this.BuildUrl("tags");
             var json = await this.Http.Get(url.Uri.AbsoluteUri);
-            var result = json.ToObject<List<Tag>>();
+            var result = json.ToObject<List<TagDescriptor>>();
             return result;
         }
     }

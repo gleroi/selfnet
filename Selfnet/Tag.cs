@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Selfnet
 {
-    public class Tag
+    public class TagDescriptor
     {
-        public string Value { get; set; }
+        public string Tag { get; set; }
         public string Color { get; set; }
         public int UnreadCount { get; set; }
     }
