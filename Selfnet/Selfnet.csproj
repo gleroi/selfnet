@@ -44,6 +44,8 @@
     <Compile Include="SelfossApi.cs" />
     <Compile Include="SelfossBoolConverter.cs" />
     <Compile Include="Status.cs" />
+    <Compile Include="Tag.cs" />
+    <Compile Include="TagsApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

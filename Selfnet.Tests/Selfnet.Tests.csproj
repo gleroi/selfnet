@@ -70,6 +70,7 @@
     <Compile Include="ItemsTests.cs" />
     <Compile Include="LoginTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

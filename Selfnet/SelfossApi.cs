@@ -10,15 +10,17 @@ namespace Selfnet
     public class SelfossApi : BaseApi
     {
         public ItemsApi Items { get; private set; }
+        public TagsApi Tags { get; private set; }
 
         internal SelfossApi(ConnectionOptions opts, IHttpGateway http)
             : base(opts, http)
         {
             this.Items = new ItemsApi(opts, http);
+            this.Tags = new TagsApi(opts, http);
         }
 
         public SelfossApi(ConnectionOptions opts)
-            : base(opts, new HttpGateway()) {}
+            : this(opts, new HttpGateway()) {}
 
         public async Task<bool> Login()
         {
