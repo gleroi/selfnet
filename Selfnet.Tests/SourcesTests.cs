@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using Xunit;
 
 namespace Selfnet.Tests
@@ -24,6 +25,27 @@ namespace Selfnet.Tests
             var source = result.First();
             Assert.Equal(33, source.Id);
             Assert.Equal("http://feeds.feedburner.com/netCurryRecentArticles", source.Params["url"]);
+        }
+
+        [Fact]
+        public async void Sources_Stats_ShouldWork()
+        {
+            Context.Http.GetReturns(@"[{""id"":""33"",""title"":"".NET Curry: Recent Articles"",""unread"":""0""},
+                {""id"":""27"",""title"":""Android Developers Blog"",""unread"":""42""},
+                {""id"":""42"",""title"":""Architecture @ Microsoft Blog"",""unread"":""0""}]");
+
+            var api = Context.Api();
+
+            var result = await api.Sources.Stats();
+
+            Assert.NotNull(result);
+
+            var stats = result.ToList();
+            Assert.Equal(3, stats.Count);
+
+            var stat = stats[1];
+            Assert.Equal(27, stat.Id);
+            Assert.Equal(42, stat.Unread);
         }
 
         [Fact]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
@@ -17,6 +18,13 @@ namespace Selfnet
             var url = this.BuildUrl("sources/list");
             var json = await this.Http.Get(url.Uri.AbsoluteUri);
             return json.ToObject<List<Source>>();
+        }
+
+        public async Task<IEnumerable<SourceStat>> Stats()
+        {
+            var url = this.BuildUrl("sources/stats");
+            var json = await this.Http.Get(url.Uri.AbsoluteUri);
+            return json.ToObject<List<SourceStat>>();
         }
 
         public async Task<IEnumerable<Spout>> Spouts()
