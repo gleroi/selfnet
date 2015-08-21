@@ -25,5 +25,30 @@ namespace Selfnet.Tests
             Assert.Equal(33, source.Id);
             Assert.Equal("http://feeds.feedburner.com/netCurryRecentArticles", source.Params["url"]);
         }
+
+        [Fact]
+        public async void Sources_Spouts_ShouldWork()
+        {
+            Context.Http.GetReturns(@"{""spouts\\deviantart\\dailydeviations"":{""name"":""deviantART - daily deviations"",""description"":""daily deviations of deviantART"",""params"":false},
+                ""spouts\\deviantart\\usersfavs"":{""name"":""deviantART - favs of a user"",""description"":""favorites of a user on deviantART"",""params"":{""username"":{""title"":""Username"",""type"":""text"",""default"":"""",""required"":true,""validation"":[""notempty""]}}},
+                ""spouts\\deviantart\\user"":{""name"":""deviantART - user"",""description"":""deviations of a deviantART user"",""params"":{""username"":{""title"":""Username"",""type"":""text"",""default"":"""",""required"":true,""validation"":[""notempty""]}}}}");
+
+            var api = Context.Api();
+
+            var result = await api.Sources.Spouts();
+
+            Assert.NotNull(result);
+            var spouts = result.ToList();
+
+            Assert.Equal(3, spouts.Count);
+
+            var spout1 = spouts[0];
+            Assert.Equal(@"spouts\deviantart\dailydeviations", spout1.Id);
+            Assert.Empty(spout1.Params);
+
+            var spout2 = spouts[1];
+            Assert.Equal(@"spouts\deviantart\usersfavs", spout2.Id);
+            Assert.Equal(1, spout2.Params.Count);
+        }
     }
 }

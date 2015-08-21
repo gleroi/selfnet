@@ -18,7 +18,10 @@ namespace Selfnet
 
         static BaseApi()
         {
-            BaseApi.Converters = new List<JsonConverter> { new SelfossBoolConverter() };
+            BaseApi.Converters = new List<JsonConverter>
+            {
+                new SelfossBoolConverter(),
+            };
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
                 Converters = BaseApi.Converters
