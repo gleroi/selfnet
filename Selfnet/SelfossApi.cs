@@ -11,12 +11,14 @@ namespace Selfnet
     {
         public ItemsApi Items { get; private set; }
         public TagsApi Tags { get; private set; }
+        public SourcesApi Sources { get; set; }
 
         internal SelfossApi(ConnectionOptions opts, IHttpGateway http)
             : base(opts, http)
         {
             this.Items = new ItemsApi(opts, http);
             this.Tags = new TagsApi(opts, http);
+            this.Sources = new SourcesApi(opts, http);
         }
 
         public SelfossApi(ConnectionOptions opts)

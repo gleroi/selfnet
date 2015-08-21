@@ -43,6 +43,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelfossApi.cs" />
     <Compile Include="SelfossBoolConverter.cs" />
+    <Compile Include="Source.cs" />
+    <Compile Include="SourcesApi.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="TagsApi.cs" />
