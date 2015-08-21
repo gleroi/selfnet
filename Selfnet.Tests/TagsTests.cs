@@ -22,7 +22,18 @@ namespace Selfnet.Tests
 
             var tag = tags.First();
 
-            Assert.Equal(".net", tag.Tag);
+            Assert.Equal(".net", tag.Name);
+        }
+
+        [Fact]
+        public async void Tags_ChangeColor_ShouldWork()
+        {
+            Context.Http.PostReturns("{ 'success': true }");
+            var api = Context.Api();
+
+            var result = await api.Tags.ChangeColor(".net", "#fe0000");
+
+            Assert.True(result);
         }
     }
 }
