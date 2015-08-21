@@ -46,6 +46,7 @@
     <Compile Include="SelfossBoolConverter.cs" />
     <Compile Include="Source.cs" />
     <Compile Include="SourcesApi.cs" />
+    <Compile Include="SourceStat.cs" />
     <Compile Include="Spout.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="Tag.cs" />
