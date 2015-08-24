@@ -6,10 +6,10 @@
 
         public static ConnectionOptions Options = new ConnectionOptions
         {
-            Host = "nostromo.myds.me",
+            Host = "host.com",
             Base = "selfoss",
-            Username = "gleroi",
-            Password = "cXVa2I0L"
+            Username = "",
+            Password = ""
         };
 
         public static readonly HttpGatewayFake Http = new HttpGatewayFake();
@@ -18,8 +18,8 @@
         {
             if (api == null)
             {
-                //api = new SelfossApi(Options, Http);
-                api = new SelfossApi(Options);
+                api = new SelfossApi(Options, Http);
+                //api = new SelfossApi(Options);
             }
             return api;
         }

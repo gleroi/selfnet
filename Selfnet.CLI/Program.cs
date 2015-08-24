@@ -17,10 +17,10 @@ namespace Selfnet.CLI
         {
             var api = new SelfossApi(new ConnectionOptions
             {
-                Host = "nostromo.myds.me",
+                Host = "host.com",
                 Base = "selfoss",
-                Username = "gleroi",
-                Password = "cXVa2I0L"
+                Username = "",
+                Password = ""
             });
 
             while (Console.ReadKey().KeyChar != 'q')
