@@ -58,7 +58,7 @@ namespace Selfnet
             {
                 return;
             }
-            if (resp.StatusCode == HttpStatusCode.BadRequest)
+            if (resp.StatusCode == HttpStatusCode.BadRequest || resp.StatusCode == HttpStatusCode.InternalServerError)
             {
                 var msg = await resp.Content.ReadAsStringAsync();
                 throw new SelfossException(msg, null);
