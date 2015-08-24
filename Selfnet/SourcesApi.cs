@@ -41,6 +41,25 @@ namespace Selfnet
             return sources;
         }
 
+        public async Task<bool> Save(Source source)
+        {
+            var url = this.BuildUrl("source");
+            if (source.Id != 0)
+            {
+                url = this.BuildUrl("source/" + source.Id);
+            }
+            var parameters = new Dictionary<string, string>();
+            var json = await this.Http.Post(url.Uri.AbsoluteUri, parameters);
+
+            JToken token;
+            json.ToObject<JObject>().TryGetValue("id", out token);
+
+            var id = token.Value<int>();
+            source.Id = id;
+
+            return this.ReadSuccess(json);
+        }
+
         public async Task<IEnumerable<SourceStat>> Stats()
         {
             var url = this.BuildUrl("sources/stats");
