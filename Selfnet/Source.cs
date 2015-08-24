@@ -6,7 +6,7 @@ namespace Selfnet
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Tags { get; set; }
+        public ICollection<string> Tags { get; set; }
         public string Spout { get; set; }
         public Dictionary<string, string> Params { get; set; }
         public string Error { get; set; }

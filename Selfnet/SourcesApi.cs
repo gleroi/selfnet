@@ -17,7 +17,28 @@ namespace Selfnet
         {
             var url = this.BuildUrl("sources/list");
             var json = await this.Http.Get(url.Uri.AbsoluteUri);
-            return json.ToObject<List<Source>>();
+            return this.ReadSources(json);
+        }
+
+        private IEnumerable<Source> ReadSources(JContainer json)
+        {
+            var sources =  new List<Source>();
+            var items = json.ToObject<List<JObject>>();
+            foreach (var item in items)
+            {
+                var source = new Source()
+                {
+                    Id = item["id"].Value<int>(),
+                    Title = item["title"].ToString(),
+                    Spout = item["spout"].ToString(),
+                    Params = item["params"].ToObject<Dictionary<string, string>>(),
+                    Error = item["error"].ToString(),
+                    Favicon = item["icon"].ToString(),
+                    Tags = new List<string>(item["tags"].ToString().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                };
+                sources.Add(source);
+            }
+            return sources;
         }
 
         public async Task<IEnumerable<SourceStat>> Stats()
