@@ -12,6 +12,7 @@ namespace Selfnet
         Task<JContainer> Get(string url);
         Task<JContainer> Post(string url);
         Task<JContainer> Post(string url, IEnumerable<KeyValuePair<string, string>> parameters);
+        Task<JContainer> Delete(string url);
     }
 
     internal class HttpGateway : IHttpGateway
@@ -45,6 +46,17 @@ namespace Selfnet
             var req = new HttpRequestMessage(HttpMethod.Post, url);
             var content = new FormUrlEncodedContent(parameters);
             req.Content = content;
+            var resp = await http.SendAsync(req);
+            this.EnsureSuccessOrThrow(resp);
+            var str = await resp.Content.ReadAsStringAsync();
+            var json = JsonConvert.DeserializeObject<JContainer>(str);
+            return json;
+        }
+
+        public async Task<JContainer> Delete(string url)
+        {
+            var http = new HttpClient();
+            var req = new HttpRequestMessage(HttpMethod.Delete, url);
             var resp = await http.SendAsync(req);
             this.EnsureSuccessOrThrow(resp);
             var str = await resp.Content.ReadAsStringAsync();

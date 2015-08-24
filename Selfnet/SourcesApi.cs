@@ -67,6 +67,13 @@ namespace Selfnet
             return this.ReadSuccess(json);
         }
 
+        public async Task<bool> Delete(int id)
+        {
+            var url = this.BuildUrl("source/" + id);
+            var json = await this.Http.Delete(url.Uri.AbsoluteUri);
+            return this.ReadSuccess(json);
+        }
+
         public async Task<IEnumerable<SourceStat>> Stats()
         {
             var url = this.BuildUrl("sources/stats");

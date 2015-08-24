@@ -7,7 +7,7 @@ namespace Selfnet.Tests
         [Fact]
         public async void Login_ShouldWork()
         {
-            Context.Http.GetReturns("{ 'success': true }");
+            Context.Http.ServerReturns("{ 'success': true }");
             var api = Context.Api();
 
             var result = await api.Login();

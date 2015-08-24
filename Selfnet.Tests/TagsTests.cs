@@ -12,7 +12,7 @@ namespace Selfnet.Tests
         [Fact]
         public async void Tags_ShouldWork()
         {
-            Context.Http.GetReturns("[{\"tag\":\".net\",\"color\":\"#3166ff\",\"unread\":\"0\"}]");
+            Context.Http.ServerReturns("[{\"tag\":\".net\",\"color\":\"#3166ff\",\"unread\":\"0\"}]");
 
             var api = Context.Api();
             var tags = await api.Tags.Get();
@@ -28,7 +28,7 @@ namespace Selfnet.Tests
         [Fact]
         public async void Tags_ChangeColor_ShouldWork()
         {
-            Context.Http.PostReturns("{ 'success': true }");
+            Context.Http.ServerReturns("{ 'success': true }");
             var api = Context.Api();
 
             var result = await api.Tags.ChangeColor(".net", "#fe0000");
