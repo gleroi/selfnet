@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Selfnet
 {
-    public class SelfossException : Exception
+    public class SelfossServerException : Exception
     {
-        public SelfossException(string message, Exception inner)
+        public SelfossServerException(string message, Exception inner)
             : base(message, inner)
         { }
     }

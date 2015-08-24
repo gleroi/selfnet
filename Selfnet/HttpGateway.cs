@@ -61,7 +61,7 @@ namespace Selfnet
             if (resp.StatusCode == HttpStatusCode.BadRequest || resp.StatusCode == HttpStatusCode.InternalServerError)
             {
                 var msg = await resp.Content.ReadAsStringAsync();
-                throw new SelfossException(msg, null);
+                throw new SelfossServerException(msg, null);
             }
             resp.EnsureSuccessStatusCode();
         }
