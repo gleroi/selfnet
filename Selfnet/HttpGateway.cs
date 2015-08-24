@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -21,7 +22,7 @@ namespace Selfnet
             var http = new HttpClient();
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             var resp = await http.SendAsync(req);
-            resp.EnsureSuccessStatusCode();
+            this.EnsureSuccessOrThrow(resp);
             var str = await resp.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<JContainer>(str);
             return json;
@@ -32,7 +33,7 @@ namespace Selfnet
             var http = new HttpClient();
             var req = new HttpRequestMessage(HttpMethod.Post, url);
             var resp = await http.SendAsync(req);
-            resp.EnsureSuccessStatusCode();
+            this.EnsureSuccessOrThrow(resp);
             var str = await resp.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<JContainer>(str);
             return json;
@@ -49,10 +50,24 @@ namespace Selfnet
             }
             req.Content = content;
             var resp = await http.SendAsync(req);
-            resp.EnsureSuccessStatusCode();
+            this.EnsureSuccessOrThrow(resp);
             var str = await resp.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<JContainer>(str);
             return json;
+        }
+
+        private async void EnsureSuccessOrThrow(HttpResponseMessage resp)
+        {
+            if (resp.IsSuccessStatusCode)
+            {
+                return;
+            }
+            if (resp.StatusCode == HttpStatusCode.BadRequest)
+            {
+                var msg = await resp.Content.ReadAsStringAsync();
+                throw new SelfossException(msg, null);
+            }
+            resp.EnsureSuccessStatusCode();
         }
     }
 }

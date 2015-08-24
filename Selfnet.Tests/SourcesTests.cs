@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using Xunit;
 
@@ -25,6 +26,29 @@ namespace Selfnet.Tests
             var source = result.First();
             Assert.Equal(33, source.Id);
             Assert.Equal("http://feeds.feedburner.com/netCurryRecentArticles", source.Params["url"]);
+        }
+
+        [Fact]
+        public async void Sources_Update_ShouldWork()
+        {
+            Context.Http.PostReturns("{ 'success': true, 'id': 25 }");
+            var api = Context.Api();
+
+            var source = new Source
+            {
+                Id = 25,
+                Title = "Ayende @ Rahien",
+                Tags = new List<string> {".net", "raven", "new"},
+                Spout = @"spouts\rss\feed",
+                Params = new Dictionary<string, string>
+                {
+                    ["url"] = "http://feeds.feedburner.com/AyendeRahien"
+                }
+            };
+            var result = await api.Sources.Save(source);
+
+            Assert.True(result);
+            Assert.Equal(25, source.Id);
         }
 
         [Fact]

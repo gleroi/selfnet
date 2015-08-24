@@ -49,6 +49,13 @@ namespace Selfnet
                 url = this.BuildUrl("source/" + source.Id);
             }
             var parameters = new Dictionary<string, string>();
+            parameters["title"] = source.Title;
+            parameters["spout"] = source.Spout;
+            parameters["tags"] = String.Join(",", source.Tags);
+            foreach (var spoutParameter in source.Params)
+            {
+                parameters.Add(spoutParameter.Key, spoutParameter.Value);
+            }
             var json = await this.Http.Post(url.Uri.AbsoluteUri, parameters);
 
             JToken token;
