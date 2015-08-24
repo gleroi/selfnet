@@ -49,7 +49,7 @@ namespace Selfnet.Tests
         }
 
         [Fact]
-        public async void MarAllkRead_ShouldWork()
+        public async void MarAllRead_ShouldWork()
         {
             Context.Http.PostReturns("{ 'success': true }");
 

@@ -43,11 +43,7 @@ namespace Selfnet
         {
             var http = new HttpClient();
             var req = new HttpRequestMessage(HttpMethod.Post, url);
-            var content = new MultipartFormDataContent();
-            foreach (var parameter in parameters)
-            {
-                content.Add(new StringContent(parameter.Value), parameter.Key);
-            }
+            var content = new FormUrlEncodedContent(parameters);
             req.Content = content;
             var resp = await http.SendAsync(req);
             this.EnsureSuccessOrThrow(resp);
