@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selfnet", "Selfnet\Selfnet.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selfnet.Tests", "Selfnet.Tests\Selfnet.Tests.csproj", "{FB7F08A1-6783-4B8A-B8AE-921ABC213F8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Selfnet.App", "Selfnet.App\Selfnet.App.csproj", "{3757D933-56E5-45AE-9CD2-02A862D4387B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FB7F08A1-6783-4B8A-B8AE-921ABC213F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB7F08A1-6783-4B8A-B8AE-921ABC213F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB7F08A1-6783-4B8A-B8AE-921ABC213F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3757D933-56E5-45AE-9CD2-02A862D4387B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3757D933-56E5-45AE-9CD2-02A862D4387B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3757D933-56E5-45AE-9CD2-02A862D4387B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3757D933-56E5-45AE-9CD2-02A862D4387B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
