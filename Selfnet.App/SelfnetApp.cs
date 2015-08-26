@@ -2,15 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Selfnet.App
 {
     class SelfnetApp
     {
-        public IEnumerable<Item> GetItems()
+        private readonly ItemsStore Items;
+        private readonly SelfossApi Server;
+
+        public SelfnetApp(ItemsStore items, SelfossApi server)
         {
-            return new List<Item>();
+            this.Items = items;
+            this.Server = server;
+        }
+
+        public ICollection<Item> GetItems()
+        {
+            var items = this.Items.All();
+            if (!items.Any())
+            {
+                this.Refresh();
+            }
+            return items;
+        }
+
+        private async void Refresh()
+        {
+            var items = await this.Server.Items.Get();
+            this.Items.Add(items);
         }
     }
 }
