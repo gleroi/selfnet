@@ -55,11 +55,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context.cs" />
+    <Compile Include="Fakes\SelfossApiFake.cs" />
     <Compile Include="GetItemsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Selfnet.App\Selfnet.App.csproj">
+      <Project>{3757D933-56E5-45AE-9CD2-02A862D4387B}</Project>
+      <Name>Selfnet.App</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Selfnet\Selfnet.csproj">
+      <Project>{10bf9b3a-44d5-446c-939e-615efe448643}</Project>
+      <Name>Selfnet</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

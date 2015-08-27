@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Selfnet
 {
-    public class ItemsApi : BaseApi
+    public interface IItemsApi {
+        Task<IEnumerable<Item>> Get();
+        Task<IEnumerable<Item>> Get(ItemsFilter filter);
+        Task<bool> MarkRead(int id);
+        Task<bool> MarkAllRead(params int[] ids);
+        Task<bool> MarkUnread(int id);
+        Task<bool> MarkStarred(int id);
+        Task<bool> MarkUnstarred(int id);
+    }
+
+    public class ItemsApi : BaseApi, IItemsApi
     {
         internal ItemsApi(ConnectionOptions opts, IHttpGateway http)
             : base(opts, http) {}

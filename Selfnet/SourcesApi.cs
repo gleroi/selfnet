@@ -7,7 +7,15 @@ using Newtonsoft.Json.Linq;
 
 namespace Selfnet
 {
-    public class SourcesApi : BaseApi
+    public interface ISourcesApi {
+        Task<IEnumerable<Source>> Get();
+        Task<bool> Save(Source source);
+        Task<bool> Delete(int id);
+        Task<IEnumerable<SourceStat>> Stats();
+        Task<IEnumerable<Spout>> Spouts();
+    }
+
+    public class SourcesApi : BaseApi, ISourcesApi
     {
         internal SourcesApi(ConnectionOptions opts, IHttpGateway http)
             : base(opts, http)

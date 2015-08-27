@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Selfnet.App
 {
-    class SelfnetApp
+    public class SelfnetApp
     {
         private readonly ItemsStore Items;
-        private readonly SelfossApi Server;
+        private readonly ISelfossApi Server;
 
-        public SelfnetApp(ItemsStore items, SelfossApi server)
+        public SelfnetApp(ItemsStore items, ISelfossApi server)
         {
             this.Items = items;
             this.Server = server;

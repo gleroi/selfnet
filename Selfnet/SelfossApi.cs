@@ -2,11 +2,18 @@
 
 namespace Selfnet
 {
-    public class SelfossApi : BaseApi
+    public interface ISelfossApi {
+        IItemsApi Items { get; }
+        ITagsApi Tags { get; }
+        ISourcesApi Sources { get; }
+        Task<bool> Login();
+    }
+
+    public class SelfossApi : BaseApi, ISelfossApi
     {
-        public ItemsApi Items { get; private set; }
-        public TagsApi Tags { get; private set; }
-        public SourcesApi Sources { get; set; }
+        public IItemsApi Items { get; private set; }
+        public ITagsApi Tags { get; private set; }
+        public ISourcesApi Sources { get; private set; }
 
         internal SelfossApi(ConnectionOptions opts, IHttpGateway http)
             : base(opts, http)

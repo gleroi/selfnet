@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Selfnet.App
 {
-    class ItemsStore
+    public class ItemsStore
     {
         private readonly ICollection<Item> Items = new List<Item>();
 

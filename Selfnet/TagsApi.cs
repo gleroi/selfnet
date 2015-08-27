@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Selfnet
 {
-    public class TagsApi : BaseApi
+    public interface ITagsApi {
+        Task<IEnumerable<Tag>> Get();
+        Task<bool> ChangeColor(string tag, string color);
+    }
+
+    public class TagsApi : BaseApi, ITagsApi
     {
         internal TagsApi(ConnectionOptions opts, IHttpGateway http)
             : base(opts, http)
