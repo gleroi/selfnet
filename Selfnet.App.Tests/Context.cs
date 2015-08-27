@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Selfnet.App.Tests.Fakes;
 
 namespace Selfnet.App.Tests
@@ -40,7 +41,7 @@ namespace Selfnet.App.Tests
 
         public void GivenEmptyDatabase()
         {
-            this.itemStore = new ItemsStore();
+            this.itemStore = new ItemsStore(Path.GetTempFileName());
         }
 
         public void GivenServerHasItems(params Item[] items)
