@@ -30,6 +30,7 @@ namespace Selfnet.App.Tests.Stores
             using (var store = new ItemsStore(this.DbPath))
             {
                 store.Add(items);
+                store.Commit();
             }
 
             using (var store = new ItemsStore(this.DbPath))

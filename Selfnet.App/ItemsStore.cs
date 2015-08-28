@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using PCLStorage;
 
@@ -9,12 +10,14 @@ namespace Selfnet.App
 {
     public class ItemsStore : IDisposable
     {
-        private ICollection<Item> Items { get; } = new List<Item>();
+        private ICollection<Item> Items { get; set; }
         private string Filepath { get; }
 
         public ItemsStore(string path)
         {
             this.Filepath = path;
+            var task = this.ReadItems();
+            this.Items = task.Result;
         }
 
         public ICollection<Item> All()
@@ -28,10 +31,32 @@ namespace Selfnet.App
             {
                 this.Items.Add(item);
             }
-            this.WriteItems();
         }
 
-        private async void WriteItems()
+        public void Commit()
+        {
+            this.WriteItems().Wait();
+        }
+
+        private async Task<ICollection<Item>>  ReadItems()
+        {
+            IFile file = await FileSystem.Current.GetFileFromPathAsync(this.Filepath);
+            try
+            {
+                using (var stream = await file.OpenAsync(FileAccess.Read))
+                {
+                    var serializer = new XmlSerializer(typeof (List<Item>));
+                    var items = serializer.Deserialize(stream) as List<Item>;
+                    return items;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<Item>();
+            }
+        }
+
+        private async Task WriteItems()
         {
             IFile file = await FileSystem.Current.GetFileFromPathAsync(this.Filepath);
             using (var stream = await file.OpenAsync(FileAccess.ReadAndWrite))
