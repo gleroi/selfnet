@@ -102,12 +102,29 @@
       <DependentUpon>AllItemsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Items\AllItemsViewModel.cs" />
-    <Compile Include="Items\ItemViewModel.cs" />
+    <Compile Include="Items\ReadItemView.xaml.cs">
+      <DependentUpon>ReadItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Items\ReadItemViewModel.cs" />
+    <Compile Include="Selfoss\ItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Selfoss\SelfwinApp.cs" />
+    <Compile Include="Settings\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\SettingsViewModel.cs" />
     <Compile Include="Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Shell\ShellViewModel.cs" />
+    <Compile Include="Sources\AllSourcesView.xaml.cs">
+      <DependentUpon>AllSourcesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\AllSourcesViewModel.cs" />
+    <Compile Include="Tags\AllTagsView.xaml.cs">
+      <DependentUpon>AllTagsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tags\AllTagsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -146,9 +163,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Items\ReadItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Shell\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sources\AllSourcesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tags\AllTagsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -157,9 +194,7 @@
       <Name>Selfnet</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Selfoss\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -5,92 +5,53 @@
     xmlns:local="using:Selfwin.Items"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:micro="using:Caliburn.Micro"
     mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="ShortItemTemplate">
+                <Grid Margin="3 3" micro:Message.Attach="[Event Tapped] = [Action OnItemSelected($dataContext)]">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTitleStyle}" />
+
+                    <TextBlock Text="{Binding Content}"
+                               TextWrapping="WrapWholeWords"
+                               Grid.Row="1"
+                               MaxLines="5" />
+
+                    <TextBlock Text="{Binding SourceTitle}"
+                               HorizontalAlignment="Right"
+                               Grid.Row="2" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot>
             <PivotItem Header="All">
                 <ScrollViewer>
-                <ItemsControl ItemsSource="{Binding Items}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="3 3">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTitleStyle}" />
-
-                                <TextBlock Text="{Binding ShortDescription}"
-                                   TextWrapping="WrapWholeWords"
-                                   Grid.Row="1" 
-                                   MaxLines="5"/>
-
-                                <TextBlock Text="{Binding SourceTitle}"
-                                   HorizontalAlignment="Right"
-                                   Grid.Row="2"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    <ItemsControl ItemsSource="{Binding Items}"
+                                  ItemTemplate="{StaticResource ShortItemTemplate}">
+                    </ItemsControl>
                 </ScrollViewer>
             </PivotItem>
             <PivotItem Header="Unread">
                 <ScrollViewer>
-                <ItemsControl ItemsSource="{Binding UnreadItems}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="3 3">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTitleStyle}" />
-
-                                <TextBlock Text="{Binding ShortDescription}"
-                                   TextWrapping="WrapWholeWords"
-                                   Grid.Row="1" 
-                                   MaxLines="5"/>
-
-                                <TextBlock Text="{Binding SourceTitle}"
-                                   HorizontalAlignment="Right"
-                                   Grid.Row="2"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    <ItemsControl ItemsSource="{Binding UnreadItems}"
+                                  ItemTemplate="{StaticResource ShortItemTemplate}">
+                    </ItemsControl>
                 </ScrollViewer>
             </PivotItem>
             <PivotItem Header="Starred">
                 <ScrollViewer>
-                <ItemsControl ItemsSource="{Binding StarredItems}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="3 3">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTitleStyle}" />
-
-                                <TextBlock Text="{Binding ShortDescription}"
-                                   TextWrapping="WrapWholeWords"
-                                   Grid.Row="1" 
-                                   MaxLines="5"/>
-
-                                <TextBlock Text="{Binding SourceTitle}"
-                                   HorizontalAlignment="Right"
-                                   Grid.Row="2"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    <ItemsControl ItemsSource="{Binding StarredItems}"
+                                  ItemTemplate="{StaticResource ShortItemTemplate}">
+                    </ItemsControl>
                 </ScrollViewer>
             </PivotItem>
         </Pivot>

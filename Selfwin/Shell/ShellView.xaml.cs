@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,7 +12,21 @@ namespace Selfwin.Shell
     {
         public ShellView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+        }
+
+        private void OnMenuToggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            this.SplitView.IsPaneOpen = !this.SplitView.IsPaneOpen;
+        }
+
+        private void OnTitleBarLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var ui = sender as UIElement;
+            if (ui != null)
+            {
+                Window.Current.SetTitleBar(ui);
+            }
         }
     }
 }

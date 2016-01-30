@@ -5,9 +5,60 @@
     xmlns:local="using:Selfwin.Shell"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:micro="using:Caliburn.Micro"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ContentControl x:Name="ActiveItem" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="MenuButton"
+                    Content="&#xE700;"
+                    Click="OnMenuToggled"
+                    Style="{StaticResource TitleBarButtonStyle}" />
+
+            <Button x:Name="Back"
+                    Grid.Column="1"
+                    Content="&#xE830;"
+                    Style="{StaticResource TitleBarButtonStyle}" />
+
+            <TextBlock x:Name="TitleBar"
+                       Grid.Column="2"
+                       Text="Selfwin"
+                       Loaded="OnTitleBarLoaded"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Style="{StaticResource TitleTextBlockStyle}" />
+        </Grid>
+
+        <SplitView x:Name="SplitView" Grid.Row="1"
+                   DisplayMode="Overlay"
+                   PaneBackground="{ThemeResource SystemAccentColor}"
+                   OpenPaneLength="175">
+            <SplitView.Pane>
+                <StackPanel>
+                    <Button micro:Message.Attach="Items" Content="Items" Style="{StaticResource MenuItemStyle}" />
+                    <Button micro:Message.Attach="Tags" Content="Tags" Style="{StaticResource MenuItemStyle}" />
+                    <Button micro:Message.Attach="Sources" Content="Sources" Style="{StaticResource MenuItemStyle}" />
+                    <Button micro:Message.Attach="Settings" Content="Settings" Style="{StaticResource MenuItemStyle}" />
+                </StackPanel>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Frame micro:Message.Attach="[Event Loaded] = [Action OnFrameAvailable($source)]"
+                       DataContext="{x:Null}" />
+            </SplitView.Content>
+        </SplitView>
+
+
     </Grid>
 </Page>

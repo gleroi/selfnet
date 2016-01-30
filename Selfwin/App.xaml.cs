@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using Microsoft.ApplicationInsights;
 using Selfwin.Items;
+using Selfwin.Selfoss;
+using Selfwin.Settings;
 using Selfwin.Shell;
+using Selfwin.Sources;
+using Selfwin.Tags;
 
 namespace Selfwin
 {
@@ -32,12 +39,20 @@ namespace Selfwin
 
         protected override void Configure()
         {
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             container = new WinRTContainer();
             container.RegisterWinRTServices();
-            
+         
+            container.Singleton<SelfwinApp>();
+               
             //TODO: Register your view models at the container
             container.PerRequest<ShellViewModel>();
             container.PerRequest<AllItemsViewModel>();
+            container.PerRequest<ReadItemViewModel>();
+
+            container.PerRequest<AllTagsViewModel>();
+            container.PerRequest<AllSourcesViewModel>();
+            container.PerRequest<SettingsViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)
@@ -56,11 +71,6 @@ namespace Selfwin
         protected override void BuildUp(object instance)
         {
             container.BuildUp(instance);
-        }
-
-        protected override void PrepareViewFirst(Frame rootFrame)
-        {
-            container.RegisterNavigationService(rootFrame);
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)

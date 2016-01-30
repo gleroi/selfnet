@@ -1,26 +1,21 @@
-﻿
-using System.Linq;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Linq;
 using Caliburn.Micro;
 using Selfnet;
+using Selfwin.Selfoss;
 
 namespace Selfwin.Items
 {
     public class AllItemsViewModel : Screen
     {
-        ISelfossApi Api { get; }
+        private SelfwinApp App { get; }
+        private INavigationService Navigation { get; }
 
-        public AllItemsViewModel()
+        public AllItemsViewModel(INavigationService navigation, SelfwinApp app)
         {
-            this.Api = new SelfossApi(new ConnectionOptions()
-            {
-                Host = "nostromo.myds.me",
-                Base="selfoss",
-                Username = "gleroi",
-                Password="cXVa2I0L",
-            });
+            this.App = app;
+            this.Navigation = navigation;
         }
+
 
         private BindableCollection<ItemViewModel> _items;
         public BindableCollection<ItemViewModel> Items
@@ -41,13 +36,17 @@ namespace Selfwin.Items
         protected override async void OnActivate()
         {
             base.OnActivate();
-            var items = await this.Api.Items.Get(new ItemsFilter()
-            {
-            });
-            var vms = items.Select(item => new ItemViewModel(item)).ToList();
-            this.Items = new BindableCollection<ItemViewModel>(vms);
-            this.UnreadItems = new BindableCollection<ItemViewModel>(vms.Where(v => v.Unread));
-            this.StarredItems = new BindableCollection<ItemViewModel>(vms.Where(v => v.Starred));
+            var items = await this.App.Items();
+            this.Items = new BindableCollection<ItemViewModel>(items);
+            var unread = await this.App.UnreadItems();
+            this.UnreadItems = new BindableCollection<ItemViewModel>(unread);
+            var starred = await this.App.StarredItems();
+            this.StarredItems = new BindableCollection<ItemViewModel>(starred);
+        }
+
+        public void OnItemSelected(ItemViewModel item)
+        {
+            this.Navigation.NavigateToViewModel<ReadItemViewModel>(item);
         }
     }
 }

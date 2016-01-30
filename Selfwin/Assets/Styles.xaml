@@ -3,10 +3,37 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Selfwin.Assets">
     
-    <Style x:Key="ItemTitleStyle" TargetType="TextBlock">
-        <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="FontSize" Value="20" />
+    <Style x:Key="ItemTitleStyle" 
+           BasedOn="{StaticResource SubtitleTextBlockStyle}"
+           TargetType="TextBlock">
         <Setter Property="TextTrimming" Value="WordEllipsis" />
+        <Setter Property="MaxLines" Value="1" />
     </Style>
-    
+
+    <Style x:Key="ActionButtonStyle" TargetType="Button">
+        <Setter Property="Margin" Value="7 0 0 0" />
+    </Style>
+
+    <Style x:Key="TitleBarButtonStyle" 
+           BasedOn="{StaticResource NavigationBackButtonNormalStyle}"  
+           TargetType="Button">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="{StaticResource SystemAccentColor}" />
+    </Style>
+
+    <Style x:Key="MenuItemStyle" 
+           TargetType="Button">
+        <Setter Property="Margin" Value="7 11" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="{StaticResource SystemAccentColor}" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+
+    <Style TargetType="ScrollViewer">
+        <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="IsVerticalRailEnabled" Value="False" />
+    </Style>
+
 </ResourceDictionary>
