@@ -18,8 +18,27 @@ namespace Selfwin.Selfoss
 
         public string Title => this.Parameter.Title;
         public string SourceTitle => this.Parameter.SourceTitle;
-        public bool Unread => this.Parameter.Unread;
-        public bool Starred => this.Parameter.Starred;
+
+
+        public bool Unread
+        {
+            get { return this.Parameter.Unread; }
+            set
+            {
+                this.Parameter.Unread = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
+
+        public bool Starred
+        {
+            get { return this.Parameter.Starred; }
+            set
+            {
+                this.Parameter.Starred = value;
+                this.NotifyOfPropertyChange();
+            }
+        }
 
         private string _content;
         public string Content

@@ -5,6 +5,7 @@
     xmlns:local="using:Selfwin.Items"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:micro="using:Caliburn.Micro"
     mc:Ignorable="d">
 
     <Grid>
@@ -13,7 +14,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ScrollViewer  Margin="15 13">
+        <ScrollViewer  Margin="15 5">
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
                 <Grid.RowDefinitions>
@@ -35,14 +36,17 @@
             </Grid>
         </ScrollViewer>
 
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <Button Content="Starred" Style="{StaticResource ActionButtonStyle}" />
-            <Button Content="Read" Style="{StaticResource ActionButtonStyle}" />
-            <Button Content="Close" Style="{StaticResource ActionButtonStyle}" />
-        </StackPanel>
+        <CommandBar Grid.Row="1" ClosedDisplayMode="Compact">
+                <AppBarButton Label="Favorite"
+                              micro:Message.Attach="ToggleFavorite"
+                              Icon="{Binding FavoriteSymbol}" />
+                <AppBarButton Label="Read" 
+                              micro:Message.Attach="ToggleRead"
+                              Icon="{Binding ReadSymbol}" />
+                <AppBarButton Label="Close" 
+                              micro:Message.Attach="Close"
+                              Icon="Cancel" />
+        </CommandBar>
 
     </Grid>
 </Page>

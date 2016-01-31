@@ -48,5 +48,31 @@ namespace Selfwin.Selfoss
             var items = await this.Items();
             return items.Where(i => i.Starred).ToList();
         }
+
+        public void ChangeFavorite(ItemViewModel item, bool starred)
+        {
+            item.Starred = starred;
+            if (starred)
+            {
+                this.Api.Items.MarkStarred(item.Parameter.Id);
+            }
+            else
+            {
+                this.Api.Items.MarkUnstarred(item.Parameter.Id);
+            }
+        }
+
+        public void ChangeUnread(ItemViewModel item, bool unread)
+        {
+            item.Unread = unread;
+            if (unread)
+            {
+                this.Api.Items.MarkUnread(item.Parameter.Id);
+            }
+            else
+            {
+                this.Api.Items.MarkRead(item.Parameter.Id);
+            }
+        }
     }
 }

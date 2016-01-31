@@ -10,10 +10,6 @@
         <Setter Property="MaxLines" Value="1" />
     </Style>
 
-    <Style x:Key="ActionButtonStyle" TargetType="Button">
-        <Setter Property="Margin" Value="7 0 0 0" />
-    </Style>
-
     <Style x:Key="TitleBarButtonStyle" 
            BasedOn="{StaticResource NavigationBackButtonNormalStyle}"  
            TargetType="Button">
