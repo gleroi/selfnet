@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Selfwin.Shell"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    NavigationCacheMode="Enabled"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:micro="using:Caliburn.Micro"
     mc:Ignorable="d">

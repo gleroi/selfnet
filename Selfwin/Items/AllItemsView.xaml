@@ -6,52 +6,99 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:micro="using:Caliburn.Micro"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="ShortItemTemplate">
-                <Grid Margin="3 3" micro:Message.Attach="[Event Tapped] = [Action OnItemSelected($dataContext)]">
+                <Grid micro:Message.Attach="[Event Tapped] = [Action OnItemSelected($dataContext)]">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTitleStyle}" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle Fill="{StaticResource SystemAccentBrush}"
+                               Width="0"
+                               Margin="0 0 11 0"
+                               Grid.Column="0" Grid.Row="0" Grid.RowSpan="4">
+                        <i:Interaction.Behaviors>
+                            <ic:DataTriggerBehavior Binding="{Binding Unread}" Value="True"
+                                                    ComparisonCondition="Equal">
+                                <ic:ChangePropertyAction PropertyName="Width" Value="7" />
+                            </ic:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </Rectangle>
+
+                    <TextBlock x:Name="Title"
+                               Grid.Column="1"
+                               Text="{Binding Title}"
+                               Style="{StaticResource ItemTitleStyle}">
+                        <i:Interaction.Behaviors>
+                            <ic:DataTriggerBehavior Binding="{Binding Unread}" Value="False"
+                                                    ComparisonCondition="Equal">
+                                <ic:ChangePropertyAction PropertyName="Foreground"
+                                                         Value="{StaticResource SystemBaseMediumColor}" />
+                            </ic:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </TextBlock>
 
                     <TextBlock Text="{Binding Content}"
+                               Style="{StaticResource BodyTextBlockStyle}"
                                TextWrapping="WrapWholeWords"
-                               Grid.Row="1"
-                               MaxLines="5" />
+                               Grid.Row="1" Grid.Column="1"
+                               MaxLines="5">
+                        <i:Interaction.Behaviors>
+                            <ic:DataTriggerBehavior Binding="{Binding Unread}" Value="False"
+                                                    ComparisonCondition="Equal">
+                                <ic:ChangePropertyAction PropertyName="Foreground"
+                                                         Value="{StaticResource SystemBaseMediumColor}" />
+                            </ic:DataTriggerBehavior>
+                        </i:Interaction.Behaviors>
+
+                    </TextBlock>
 
                     <TextBlock Text="{Binding SourceTitle}"
                                HorizontalAlignment="Right"
-                               Grid.Row="2" />
+                               Grid.Row="2" Grid.Column="1" />
+
+                    <Rectangle Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                               Fill="{StaticResource SystemBaseLowBrush}"
+                               Height="1" />
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot>
+            <Pivot.Resources>
+                <Style TargetType="PivotItem">
+                    <Setter Property="Margin" Value="0" />
+                </Style>
+            </Pivot.Resources>
             <PivotItem Header="All">
                 <ScrollViewer>
                     <ItemsControl ItemsSource="{Binding Items}"
-                                  ItemTemplate="{StaticResource ShortItemTemplate}">
-                    </ItemsControl>
+                                  ItemTemplate="{StaticResource ShortItemTemplate}" />
                 </ScrollViewer>
             </PivotItem>
             <PivotItem Header="Unread">
                 <ScrollViewer>
                     <ItemsControl ItemsSource="{Binding UnreadItems}"
-                                  ItemTemplate="{StaticResource ShortItemTemplate}">
-                    </ItemsControl>
+                                  ItemTemplate="{StaticResource ShortItemTemplate}" />
                 </ScrollViewer>
             </PivotItem>
             <PivotItem Header="Starred">
                 <ScrollViewer>
                     <ItemsControl ItemsSource="{Binding StarredItems}"
-                                  ItemTemplate="{StaticResource ShortItemTemplate}">
-                    </ItemsControl>
+                                  ItemTemplate="{StaticResource ShortItemTemplate}" />
                 </ScrollViewer>
             </PivotItem>
         </Pivot>

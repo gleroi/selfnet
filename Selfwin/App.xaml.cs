@@ -75,8 +75,6 @@ namespace Selfwin
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
- 			if (args.PreviousExecutionState == ApplicationExecutionState.Running)
-                return;
             this.DisplayRootViewFor<ShellViewModel>();
         }
     }
