@@ -48,15 +48,14 @@
                    OpenPaneLength="175">
             <SplitView.Pane>
                 <StackPanel>
-                    <Button micro:Message.Attach="Items" Content="Items" Style="{StaticResource MenuItemStyle}" />
+                    <Button micro:Message.Attach="AllItems" Content="Items" Style="{StaticResource MenuItemStyle}" />
                     <Button micro:Message.Attach="Tags" Content="Tags" Style="{StaticResource MenuItemStyle}" />
                     <Button micro:Message.Attach="Sources" Content="Sources" Style="{StaticResource MenuItemStyle}" />
                     <Button micro:Message.Attach="Settings" Content="Settings" Style="{StaticResource MenuItemStyle}" />
                 </StackPanel>
             </SplitView.Pane>
             <SplitView.Content>
-                <Frame micro:Message.Attach="[Event Loaded] = [Action OnFrameAvailable($source)]"
-                       DataContext="{x:Null}" />
+                <ContentControl micro:View.Model="{Binding ActiveItem}" />
             </SplitView.Content>
         </SplitView>
 

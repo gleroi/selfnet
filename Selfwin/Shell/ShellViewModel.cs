@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using System.Collections.Generic;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using Selfwin.Items;
@@ -8,67 +9,59 @@ using Selfwin.Tags;
 
 namespace Selfwin.Shell
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : Conductor<Screen>.Collection.OneActive
     {
+        SelfwinNavigation Navigation { get; }
+        WinRTContainer Container { get; }
+
         public ShellViewModel(WinRTContainer container)
         {
             this.Container = container;
+            this.Navigation = new SelfwinNavigation(container, this);
         }
 
-        public INavigationService Navigation { get; private set; }
-
-        WinRTContainer Container { get; }
-
-        public void OnFrameAvailable(Frame frame)
+        protected override void OnActivate()
         {
-            this.Navigation = this.Container.RegisterNavigationService(frame);
-            this.Navigation.Navigated += this.OnNavigated;
-            this.Items();
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
+            {
+                if (Navigation.CanBack)
+                {
+                    Navigation.Back();
+                    a.Handled = true;
+                }
+            };
+            this.AllItems();
         }
 
-        private void OnNavigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        void NavigateTo<T>()
+            where T : Screen
         {
+            this.Navigation.NavigateTo<T>();
             this.NotifyOfPropertyChange(nameof(CanBack));
         }
 
-        public void Items()
+        public bool CanBack => this.Navigation.CanBack;
+
+        public void Back() => this.Navigation.Back();
+
+        public void AllItems()
         {
-            this.Navigation.NavigateToViewModel<AllItemsViewModel>();
+            this.NavigateTo<AllItemsViewModel>();
         }
 
         public void Tags()
         {
-            this.Navigation.NavigateToViewModel<AllTagsViewModel>();
+            this.NavigateTo<AllTagsViewModel>();
         }
 
         public void Sources()
         {
-            this.Navigation.NavigateToViewModel<AllSourcesViewModel>();
+            this.NavigateTo<AllSourcesViewModel>();
         }
 
         public void Settings()
         {
-            this.Navigation.NavigateToViewModel<SettingsViewModel>();
-        }
-
-        public void Back()
-        {
-            if (this.Navigation != null)
-            {
-                this.Navigation.GoBack();
-            }
-        }
-
-        public bool CanBack
-        {
-            get
-            {
-                if (this.Navigation != null)
-                {
-                    return this.Navigation.CanGoBack;
-                }
-                return false;
-            }
+            this.NavigateTo<SettingsViewModel>();
         }
     }
 }

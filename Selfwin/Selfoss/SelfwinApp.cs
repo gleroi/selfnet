@@ -74,5 +74,16 @@ namespace Selfwin.Selfoss
                 this.Api.Items.MarkRead(item.Parameter.Id);
             }
         }
+
+        public SelfWinSettings Settings()
+        {
+            //TODO: retrieve settings
+            return new SelfWinSettings();
+        }
+
+        public void SaveSettings(SelfWinSettings settings)
+        {
+            //TODO: save settings
+        }
     }
 }

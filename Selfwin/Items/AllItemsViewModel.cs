@@ -46,6 +46,7 @@ namespace Selfwin.Items
 
         public void OnItemSelected(ItemViewModel item)
         {
+            //TODO: move navigation code of ShellViewModel to shareable service
             this.Navigation.NavigateToViewModel<ReadItemViewModel>(item);
         }
     }
