@@ -11,13 +11,14 @@ namespace Selfwin.Shell
 {
     public class ShellViewModel : Conductor<Screen>.Collection.OneActive
     {
-        SelfwinNavigation Navigation { get; }
+        IAppNavigation Navigation { get; }
         WinRTContainer Container { get; }
 
-        public ShellViewModel(WinRTContainer container)
+        public ShellViewModel(WinRTContainer container, IAppNavigation navigation)
         {
             this.Container = container;
-            this.Navigation = new SelfwinNavigation(container, this);
+            this.Navigation = navigation;
+            this.Navigation.Initialize(this);
         }
 
         protected override void OnActivate()

@@ -42,11 +42,11 @@ namespace Selfwin
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             container = new WinRTContainer();
             container.RegisterWinRTServices();
-         
+
             container.Singleton<SelfwinApp>();
-               
-            //TODO: Register your view models at the container
-            container.PerRequest<ShellViewModel>();
+            container.Singleton<IAppNavigation, SelfwinNavigation>();
+
+            container.Singleton<ShellViewModel>();
             container.PerRequest<AllItemsViewModel>();
             container.PerRequest<ReadItemViewModel>();
 

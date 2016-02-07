@@ -2,15 +2,16 @@
 using Caliburn.Micro;
 using Selfnet;
 using Selfwin.Selfoss;
+using Selfwin.Shell;
 
 namespace Selfwin.Items
 {
     public class AllItemsViewModel : Screen
     {
         private SelfwinApp App { get; }
-        private INavigationService Navigation { get; }
+        private IAppNavigation Navigation { get; }
 
-        public AllItemsViewModel(INavigationService navigation, SelfwinApp app)
+        public AllItemsViewModel(IAppNavigation navigation, SelfwinApp app)
         {
             this.App = app;
             this.Navigation = navigation;
@@ -46,8 +47,7 @@ namespace Selfwin.Items
 
         public void OnItemSelected(ItemViewModel item)
         {
-            //TODO: move navigation code of ShellViewModel to shareable service
-            this.Navigation.NavigateToViewModel<ReadItemViewModel>(item);
+            this.Navigation.NavigateTo<ReadItemViewModel>();
         }
     }
 }

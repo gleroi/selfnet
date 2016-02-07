@@ -11,17 +11,17 @@ namespace Selfwin.Shell
             where T : Screen;
 
         void Back();
+        void Initialize(ConductorBaseWithActiveItem<Screen> conductor);
     }
 
     public class SelfwinNavigation : IAppNavigation
     {
-        private ShellViewModel Conductor { get; }
+        private ConductorBaseWithActiveItem<Screen> Conductor { get; set; }
         private WinRTContainer Container { get; }
 
-        public SelfwinNavigation(WinRTContainer container, ShellViewModel conductor)
+        public SelfwinNavigation(WinRTContainer container)
         {
             this.Container = container;
-            Conductor = conductor;
         }
 
 
@@ -31,10 +31,14 @@ namespace Selfwin.Shell
         public void NavigateTo<T>()
             where T : Screen
         {
-            var vm = Container.GetInstance<T>();
-            var previous = Conductor.ActiveItem;
-            Conductor.ActivateItem(vm);
-            this.PreviousPages.Push(previous);
+            var previous = this.Conductor.ActiveItem;
+            if (previous != null)
+            {
+                this.PreviousPages.Push(previous);
+            }
+
+            var vm = this.Container.GetInstance<T>();
+            this.Conductor.ActivateItem(vm);
         }
 
         public void Back()
@@ -42,9 +46,14 @@ namespace Selfwin.Shell
             if (this.PreviousPages.Count > 0)
             {
                 var previous = this.PreviousPages.Pop();
-                Conductor.ActivateItem(previous);
+                this.Conductor.ActivateItem(previous);
             }
-            Conductor.NotifyOfPropertyChange(nameof(CanBack));
+            this.Conductor.NotifyOfPropertyChange(nameof(CanBack));
+        }
+
+        public void Initialize(ConductorBaseWithActiveItem<Screen> conductor)
+        {
+            this.Conductor = conductor;
         }
     }
 }
