@@ -38,7 +38,6 @@ namespace Selfwin.Shell
             where T : Screen
         {
             this.Navigation.NavigateTo<T>();
-            this.NotifyOfPropertyChange(nameof(CanBack));
         }
 
         public bool CanBack => this.Navigation.CanBack;

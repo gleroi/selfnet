@@ -55,7 +55,7 @@
                 </StackPanel>
             </SplitView.Pane>
             <SplitView.Content>
-                <ContentControl micro:View.Model="{Binding ActiveItem}" />
+                <Frame micro:View.Model="{Binding ActiveItem}" />
             </SplitView.Content>
         </SplitView>
 

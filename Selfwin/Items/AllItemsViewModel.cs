@@ -47,7 +47,7 @@ namespace Selfwin.Items
 
         public void OnItemSelected(ItemViewModel item)
         {
-            this.Navigation.NavigateTo<ReadItemViewModel>();
+            this.Navigation.NavigateTo<ReadItemViewModel>(item);
         }
     }
 }
