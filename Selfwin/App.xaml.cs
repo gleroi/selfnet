@@ -4,9 +4,12 @@ using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Caliburn.Micro;
 using Microsoft.ApplicationInsights;
 using Selfwin.Items;
@@ -40,6 +43,15 @@ namespace Selfwin
         protected override void Configure()
         {
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                statusBar.BackgroundColor = (Color)Current.Resources["SystemAccentColor"];
+                statusBar.BackgroundOpacity = 1;
+                statusBar.ForegroundColor = (Color)Current.Resources["SystemAltHighColor"];
+            }
+
             container = new WinRTContainer();
             container.RegisterWinRTServices();
 

@@ -32,14 +32,18 @@
                     Content="&#xE830;"
                     Style="{StaticResource TitleBarButtonStyle}" />
 
-            <TextBlock x:Name="TitleBar"
-                       Grid.Column="2"
-                       Text="Selfwin"
-                       Loaded="OnTitleBarLoaded"
-                       HorizontalAlignment="Stretch"
-                       VerticalAlignment="Center"
-                       TextAlignment="Center"
-                       Style="{StaticResource TitleTextBlockStyle}" />
+            <Border x:Name="TitleBar"
+                    Grid.Column="2"
+                    Background="{StaticResource SystemAccentBrush}">
+                <TextBlock
+                    Text="Selfwin"
+                    Loaded="OnTitleBarLoaded"
+                    HorizontalAlignment="Stretch"
+                    Foreground="White"
+                    VerticalAlignment="Center"
+                    TextAlignment="Center"
+                    Style="{StaticResource SubtitleTextBlockStyle}" />
+            </Border>
         </Grid>
 
         <SplitView x:Name="SplitView" Grid.Row="1"
@@ -47,12 +51,44 @@
                    PaneBackground="{ThemeResource SystemAccentColor}"
                    OpenPaneLength="175">
             <SplitView.Pane>
-                <StackPanel>
-                    <Button micro:Message.Attach="AllItems" Content="Items" Style="{StaticResource MenuItemStyle}" />
-                    <Button micro:Message.Attach="Tags" Content="Tags" Style="{StaticResource MenuItemStyle}" />
-                    <Button micro:Message.Attach="Sources" Content="Sources" Style="{StaticResource MenuItemStyle}" />
-                    <Button micro:Message.Attach="Settings" Content="Settings" Style="{StaticResource MenuItemStyle}" />
-                </StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" 
+                            micro:Message.Attach="AllItems" Style="{StaticResource MenuItemStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <SymbolIcon VerticalAlignment="Stretch" Symbol="ViewAll"></SymbolIcon>
+                            <TextBlock Grid.Column="1" Text="Items" Margin="15 0"></TextBlock>
+                        </Grid>
+                    </Button>
+                    
+                    <Button Grid.Row="1" 
+                            micro:Message.Attach="Tags" Content="Tags" Style="{StaticResource MenuItemStyle}" />
+                    <Button Grid.Row="2" 
+                            micro:Message.Attach="Sources" Content="Sources" Style="{StaticResource MenuItemStyle}" />
+
+                    <Button Grid.Row="3" 
+                            micro:Message.Attach="AllItems" Style="{StaticResource MenuItemStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <SymbolIcon Symbol="Setting"></SymbolIcon>
+                            <TextBlock Grid.Column="1" Text="Settings" Margin="15 0"></TextBlock>
+                        </Grid>
+                    </Button>
+                </Grid>
             </SplitView.Pane>
             <SplitView.Content>
                 <Frame micro:View.Model="{Binding ActiveItem}" />

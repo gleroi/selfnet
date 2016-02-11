@@ -38,7 +38,7 @@ namespace Selfwin.Items
 
         public SymbolIcon ReadSymbol
         {
-            get { return new SymbolIcon(this.Parameter.Unread ? Symbol.Read : Symbol.Undo); }
+            get { return new SymbolIcon(this.Parameter.Unread ? Symbol.Read : Symbol.Mail); }
         }
 
         public void ToggleRead()
