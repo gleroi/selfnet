@@ -83,50 +83,39 @@
                                Height="1" />
                 </Grid>
             </DataTemplate>
+
+            <Style TargetType="PivotItem">
+                <Setter Property="Margin" Value="0" />
+            </Style>
+
+            <Style TargetType="ListView">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Margin" Value="0 0" />
+                            <Setter Property="Padding" Value="0 0"></Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
         </ResourceDictionary>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot>
-            <Pivot.Resources>
-                <Style TargetType="PivotItem">
-                    <Setter Property="Margin" Value="0" />
-                </Style>
-            </Pivot.Resources>
             <PivotItem Header="All">
-                <ScrollViewer HorizontalScrollMode="Disabled">
-                    <ItemsControl ItemsSource="{Binding Items}"
-                                  ItemTemplate="{StaticResource ShortItemTemplate}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </ScrollViewer>
+                <ListView ItemsSource="{Binding Items}"
+                          ItemTemplate="{StaticResource ShortItemTemplate}" />
             </PivotItem>
             <PivotItem Header="Unread">
-                <ScrollViewer HorizontalScrollMode="Disabled">
-                    <ItemsControl ItemsSource="{Binding UnreadItems}"
-                                  ItemTemplate="{StaticResource ShortItemTemplate}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </ScrollViewer>
+                <ListView ItemsSource="{Binding UnreadItems}"
+                          ItemTemplate="{StaticResource ShortItemTemplate}" />
             </PivotItem>
             <PivotItem Header="Starred">
-                <ScrollViewer HorizontalScrollMode="Disabled">
-                    <ItemsControl ItemsSource="{Binding StarredItems}"
-                                  ItemTemplate="{StaticResource ShortItemTemplate}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </ScrollViewer>
+                <ListView ItemsSource="{Binding StarredItems}"
+                          ItemTemplate="{StaticResource ShortItemTemplate}" />
             </PivotItem>
         </Pivot>
     </Grid>

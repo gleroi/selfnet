@@ -77,7 +77,7 @@
                             micro:Message.Attach="Sources" Content="Sources" Style="{StaticResource MenuItemStyle}" />
 
                     <Button Grid.Row="3" 
-                            micro:Message.Attach="AllItems" Style="{StaticResource MenuItemStyle}">
+                            micro:Message.Attach="Settings" Style="{StaticResource MenuItemStyle}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />

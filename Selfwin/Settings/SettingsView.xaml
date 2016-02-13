@@ -7,7 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Settings" Style="{StaticResource TitleTextBlockStyle}" />
-    </Grid>
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          Padding="15 0">
+        <TextBlock Text="Settings" Style="{StaticResource TitleTextBlockStyle}"
+                   Margin="0 15"/>
+        
+        <TextBlock Text="Server URL" Style="{StaticResource SubtitleTextBlockStyle}" />
+        <TextBox Text="{Binding Url}" />
+
+        <TextBlock Text="Server port" Style="{StaticResource SubtitleTextBlockStyle}" />
+        <TextBox Text="{Binding Port}" />
+        
+        <TextBlock Text="Username" Style="{StaticResource SubtitleTextBlockStyle}" />
+        <TextBox Text="{Binding Username}" />
+
+        <TextBlock Text="Password" Style="{StaticResource SubtitleTextBlockStyle}" />
+        <TextBox Text="{Binding Password}" />
+    </StackPanel>
 </Page>
