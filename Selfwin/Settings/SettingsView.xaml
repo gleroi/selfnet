@@ -13,15 +13,18 @@
                    Margin="0 15"/>
         
         <TextBlock Text="Server URL" Style="{StaticResource SubtitleTextBlockStyle}" />
-        <TextBox Text="{Binding Url}" />
+        <TextBox x:Name="Url" />
 
         <TextBlock Text="Server port" Style="{StaticResource SubtitleTextBlockStyle}" />
-        <TextBox Text="{Binding Port}" />
+        <TextBox x:Name="Port" />
         
         <TextBlock Text="Username" Style="{StaticResource SubtitleTextBlockStyle}" />
-        <TextBox Text="{Binding Username}" />
+        <TextBox x:Name="Username" />
 
         <TextBlock Text="Password" Style="{StaticResource SubtitleTextBlockStyle}" />
-        <TextBox Text="{Binding Password}" />
+        <PasswordBox x:Name="Password" />
+
+        <TextBlock x:Name="ErrorMessage" Style="{StaticResource BodyTextBlockStyle}"
+                   Margin="0 20" />
     </StackPanel>
 </Page>

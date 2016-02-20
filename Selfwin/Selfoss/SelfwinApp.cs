@@ -1,51 +1,67 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Storage;
 using Selfnet;
-using Selfwin.Items;
+using Selfwin.Settings;
 
 namespace Selfwin.Selfoss
 {
     public class SelfwinApp
     {
-        public SelfwinApp()
+        private SelfossApi _api;
+
+        private SelfossApi Api
         {
-            this.Api = new SelfossApi(new ConnectionOptions()
+            get
             {
-                Host = "nostromo.myds.me",
-                Base = "selfoss",
-                Username = "gleroi",
-                Password = "cXVa2I0L",
-            });
+                var settings = Settings();
+                if (settings != null && settings.SelfossOptions != null)
+                {
+                    if (_api == null)
+                    {
+                        _api = new SelfossApi(settings.SelfossOptions);
+                    }
+                    else
+                    {
+                        _api.Options = settings.SelfossOptions;
+                    }
+                }
+                return _api;
+            }
         }
 
-        private SelfossApi Api { get; }
-
-        private List<ItemViewModel> ItemsCache = null;
+        private List<ItemViewModel> ItemsCache = new List<ItemViewModel>();
 
         public async Task<IList<ItemViewModel>> Items()
         {
-            if (this.ItemsCache == null)
+            try
             {
-                var items = await this.Api.Items.Get(new ItemsFilter()
+                if ((ItemsCache == null || ItemsCache.Count == 0) && Api != null)
                 {
-                });
-                var vms = items.Select(item => new ItemViewModel(item)).ToList();
-                this.ItemsCache = vms;
-                return vms;
+                    var items = await Api.Items.Get(new ItemsFilter());
+                    var vms = items.Select(item => new ItemViewModel(item)).ToList();
+                    ItemsCache = vms;
+                    return vms;
+                }
             }
-            return this.ItemsCache;
+            catch (Exception ex)
+            {
+                //TODO: report error to user
+            }
+            return ItemsCache;
         }
 
         public async Task<IList<ItemViewModel>> UnreadItems()
         {
-            var items = await this.Items();
+            var items = await Items();
             return items.Where(i => i.Unread).ToList();
         }
 
         public async Task<IList<ItemViewModel>> StarredItems()
         {
-            var items = await this.Items();
+            var items = await Items();
             return items.Where(i => i.Starred).ToList();
         }
 
@@ -54,11 +70,11 @@ namespace Selfwin.Selfoss
             item.Starred = starred;
             if (starred)
             {
-                this.Api.Items.MarkStarred(item.Parameter.Id);
+                Api.Items.MarkStarred(item.Parameter.Id);
             }
             else
             {
-                this.Api.Items.MarkUnstarred(item.Parameter.Id);
+                Api.Items.MarkUnstarred(item.Parameter.Id);
             }
         }
 
@@ -67,23 +83,70 @@ namespace Selfwin.Selfoss
             item.Unread = unread;
             if (unread)
             {
-                this.Api.Items.MarkUnread(item.Parameter.Id);
+                Api.Items.MarkUnread(item.Parameter.Id);
             }
             else
             {
-                this.Api.Items.MarkRead(item.Parameter.Id);
+                Api.Items.MarkRead(item.Parameter.Id);
             }
         }
 
         public SelfWinSettings Settings()
         {
-            //TODO: retrieve settings
-            return new SelfWinSettings();
+            var settings = new SelfWinSettings();
+            var store = SettingsStore();
+            ReadConnection(store, settings.SelfossOptions);
+            return settings;
         }
 
-        public void SaveSettings(SelfWinSettings settings)
+        public void SaveSettings(SettingsViewModel settings)
         {
-            //TODO: save settings
+            var newSettings = new SelfWinSettings(settings.Url, settings.Port, settings.Username, settings.Password);
+
+            SaveToApplicationData(newSettings);
+        }
+
+        private void SaveToApplicationData(SelfWinSettings newSettings)
+        {
+            var store = SettingsStore();
+            SaveConnection(store, newSettings.SelfossOptions);
+        }
+
+        private static ApplicationDataContainer SettingsStore()
+        {
+            var applicationData = ApplicationData.Current;
+            var store = applicationData.LocalSettings;
+            return store;
+        }
+
+        private void ReadConnection(ApplicationDataContainer mainStore, ConnectionOptions conn)
+        {
+            ApplicationDataContainer store;
+            if (mainStore.Containers.TryGetValue("connection", out store))
+            {
+                conn.Scheme = store.Values["scheme"] as string;
+                conn.Host = store.Values["host"] as string;
+                conn.Port = (int) store.Values["port"];
+                conn.Base = store.Values["base"] as string;
+                conn.Username = store.Values["username"] as string;
+                conn.Password = store.Values["password"] as string;
+            }
+        }
+
+        private void SaveConnection(ApplicationDataContainer store, ConnectionOptions conn)
+        {
+            ApplicationDataContainer connStore;
+            if (!store.Containers.TryGetValue("connection", out connStore))
+            {
+                connStore = store.CreateContainer("connection", ApplicationDataCreateDisposition.Always);
+            }
+
+            connStore.Values["scheme"] = conn.Scheme;
+            connStore.Values["host"] = conn.Host;
+            connStore.Values["port"] = conn.Port;
+            connStore.Values["base"] = conn.Base;
+            connStore.Values["username"] = conn.Username;
+            connStore.Values["password"] = conn.Password;
         }
     }
 }

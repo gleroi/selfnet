@@ -23,7 +23,7 @@ namespace Selfnet
             var http = new HttpClient();
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             var resp = await http.SendAsync(req);
-            this.EnsureSuccessOrThrow(resp);
+            await this.EnsureSuccessOrThrow(resp);
             var str = await resp.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<JContainer>(str);
             return json;
@@ -34,7 +34,7 @@ namespace Selfnet
             var http = new HttpClient();
             var req = new HttpRequestMessage(HttpMethod.Post, url);
             var resp = await http.SendAsync(req);
-            this.EnsureSuccessOrThrow(resp);
+            await this.EnsureSuccessOrThrow(resp);
             var str = await resp.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<JContainer>(str);
             return json;
@@ -47,7 +47,7 @@ namespace Selfnet
             var content = new FormUrlEncodedContent(parameters);
             req.Content = content;
             var resp = await http.SendAsync(req);
-            this.EnsureSuccessOrThrow(resp);
+            await this.EnsureSuccessOrThrow(resp);
             var str = await resp.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<JContainer>(str);
             return json;
@@ -58,17 +58,17 @@ namespace Selfnet
             var http = new HttpClient();
             var req = new HttpRequestMessage(HttpMethod.Delete, url);
             var resp = await http.SendAsync(req);
-            this.EnsureSuccessOrThrow(resp);
+            await this.EnsureSuccessOrThrow(resp);
             var str = await resp.Content.ReadAsStringAsync();
             var json = JsonConvert.DeserializeObject<JContainer>(str);
             return json;
         }
 
-        private async void EnsureSuccessOrThrow(HttpResponseMessage resp)
+        private async Task<bool> EnsureSuccessOrThrow(HttpResponseMessage resp)
         {
             if (resp.IsSuccessStatusCode)
             {
-                return;
+                return true;
             }
             if (resp.StatusCode == HttpStatusCode.BadRequest || resp.StatusCode == HttpStatusCode.InternalServerError)
             {
@@ -76,6 +76,7 @@ namespace Selfnet
                 throw new SelfossServerException(msg, null);
             }
             resp.EnsureSuccessStatusCode();
+            return true;
         }
     }
 }
