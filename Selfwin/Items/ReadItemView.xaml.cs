@@ -27,12 +27,23 @@ namespace Selfwin.Items
             this.InitializeComponent();
         }
 
+        private const string HtmlBodyStart = @"
+<html>
+<head>
+<meta name=""viewport"" content=""width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1"">
+</head>
+<body>";
+
+        public const string HtmlBodyEnd = @"
+</body>
+</html>";
+
         private void OnWebViewLoaded(object sender, RoutedEventArgs e)
         {
             var item = this.DataContext as ReadItemViewModel;
             if (item != null)
             {
-               this.webView.NavigateToString(item.Html);
+               this.webView.NavigateToString(HtmlBodyStart + item.Html + HtmlBodyEnd);
             }
         }
     }

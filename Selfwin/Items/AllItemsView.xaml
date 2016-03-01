@@ -35,6 +35,10 @@
                                                     ComparisonCondition="Equal">
                                 <ic:ChangePropertyAction PropertyName="Width" Value="7" />
                             </ic:DataTriggerBehavior>
+                            <ic:DataTriggerBehavior Binding="{Binding Unread}" Value="False"
+                                                    ComparisonCondition="Equal">
+                                <ic:ChangePropertyAction PropertyName="Width" Value="0" />
+                            </ic:DataTriggerBehavior>
                         </i:Interaction.Behaviors>
                     </Rectangle>
 
