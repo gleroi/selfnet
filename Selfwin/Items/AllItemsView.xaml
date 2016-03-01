@@ -107,15 +107,18 @@
         <Pivot>
             <PivotItem Header="All">
                 <ListView ItemsSource="{Binding Items}"
-                          ItemTemplate="{StaticResource ShortItemTemplate}" />
+                          ItemTemplate="{StaticResource ShortItemTemplate}"
+                          SelectionMode="None" />
             </PivotItem>
             <PivotItem Header="Unread">
                 <ListView ItemsSource="{Binding UnreadItems}"
-                          ItemTemplate="{StaticResource ShortItemTemplate}" />
+                          ItemTemplate="{StaticResource ShortItemTemplate}"
+                          SelectionMode="None" />
             </PivotItem>
             <PivotItem Header="Starred">
                 <ListView ItemsSource="{Binding StarredItems}"
-                          ItemTemplate="{StaticResource ShortItemTemplate}" />
+                          ItemTemplate="{StaticResource ShortItemTemplate}"
+                          SelectionMode="None" />
             </PivotItem>
         </Pivot>
     </Grid>

@@ -19,6 +19,7 @@ namespace Selfwin.Items
 
 
         private BindableCollection<ItemViewModel> _items;
+
         public BindableCollection<ItemViewModel> Items
         {
             get { return _items; }
@@ -26,13 +27,33 @@ namespace Selfwin.Items
             {
                 if (Equals(value, _items)) return;
                 _items = value;
-                NotifyOfPropertyChange(() => Items);
+                NotifyOfPropertyChange();
             }
         }
 
-        public BindableCollection<ItemViewModel> UnreadItems { get; set; }
+        private BindableCollection<ItemViewModel> _unreadItems;
+        public BindableCollection<ItemViewModel> UnreadItems
+        {
+            get { return _unreadItems; }
+            set
+            {
+                if (Equals(value, _unreadItems)) return;
+                _unreadItems = value;
+                NotifyOfPropertyChange();
+            }
+        }
 
-        public BindableCollection<ItemViewModel> StarredItems { get; set; }
+        private BindableCollection<ItemViewModel> _starredItems;
+        public BindableCollection<ItemViewModel> StarredItems
+        {
+            get { return _starredItems; }
+            set
+            {
+                if (Equals(value, _starredItems)) return;
+                _starredItems = value;
+                NotifyOfPropertyChange();
+            }
+        }
 
         protected override async void OnActivate()
         {

@@ -41,6 +41,8 @@ namespace Selfwin.Items
             get { return new SymbolIcon(this.Parameter.Unread ? Symbol.Read : Symbol.Mail); }
         }
 
+        public string Html => this.Parameter.Html;
+
         public void ToggleRead()
         {
             if (this.Parameter != null)

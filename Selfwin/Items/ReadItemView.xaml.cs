@@ -26,5 +26,14 @@ namespace Selfwin.Items
         {
             this.InitializeComponent();
         }
+
+        private void OnWebViewLoaded(object sender, RoutedEventArgs e)
+        {
+            var item = this.DataContext as ReadItemViewModel;
+            if (item != null)
+            {
+               this.webView.NavigateToString(item.Html);
+            }
+        }
     }
 }

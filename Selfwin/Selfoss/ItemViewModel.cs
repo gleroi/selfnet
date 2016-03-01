@@ -16,7 +16,12 @@ namespace Selfwin.Selfoss
             this.InitContent(this.Parameter);
         }
 
-        public string Title => this.Parameter.Title;
+        private string title;
+        public string Title
+        {
+            get { return this.title ?? (this.title = HtmlEntity.DeEntitize(this.Parameter.Title)); }
+        } 
+
         public string SourceTitle => this.Parameter.SourceTitle;
 
 
@@ -40,7 +45,19 @@ namespace Selfwin.Selfoss
             }
         }
 
+        public string Html
+        {
+            get { return this.Parameter.Content; }
+            set
+            {
+                if (value == this.Parameter.Content) return;
+                this.Parameter.Content = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         private string _content;
+
         public string Content
         {
             get { return _content; }
@@ -58,8 +75,9 @@ namespace Selfwin.Selfoss
             elt.LoadHtml(item.Content);
 
             var text = elt.DocumentNode.Descendants("p")
+                .Take(5)
                 .Where(n => !String.IsNullOrWhiteSpace(n.InnerText))
-                .Select(n => n.InnerText);
+                .Select(n => HtmlEntity.DeEntitize(n.InnerText));
             this.Content = String.Join("\n", text);
         }
     }

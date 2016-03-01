@@ -30,8 +30,7 @@
                            HorizontalAlignment="Right"
                            Grid.Row="1" />
 
-                <TextBlock Text="{Binding Parameter.Content}"
-                           TextWrapping="WrapWholeWords"
+                <WebView x:Name="webView" Loaded="OnWebViewLoaded"
                            Grid.Row="2" />
             </Grid>
         </ScrollViewer>
