@@ -30,7 +30,8 @@
                            HorizontalAlignment="Right"
                            Grid.Row="1" />
 
-                <WebView x:Name="webView" Loaded="OnWebViewLoaded"
+                <WebView Loaded="OnWebViewLoaded"
+                         NavigationStarting="OnNavigationStarting"
                            Grid.Row="2" />
             </Grid>
         </ScrollViewer>

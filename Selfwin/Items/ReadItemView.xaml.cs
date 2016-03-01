@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -40,10 +41,22 @@ namespace Selfwin.Items
 
         private void OnWebViewLoaded(object sender, RoutedEventArgs e)
         {
+            var webView = sender as WebView;
             var item = this.DataContext as ReadItemViewModel;
-            if (item != null)
+            if (webView != null && item != null)
             {
-               this.webView.NavigateToString(HtmlBodyStart + item.Html + HtmlBodyEnd);
+               webView.NavigateToString(HtmlBodyStart + item.Html + HtmlBodyEnd);
+            }
+        }
+
+        private void OnNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            var webView = sender as WebView;
+            if (webView != null && args?.Uri != null)
+            {
+                var uri = args.Uri;
+                args.Cancel = true;
+                Launcher.LaunchUriAsync(uri);
             }
         }
     }
