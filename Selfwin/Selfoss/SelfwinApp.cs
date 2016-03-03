@@ -40,10 +40,7 @@ namespace Selfwin.Selfoss
             {
                 if ((ItemsCache == null || ItemsCache.Count == 0) && Api != null)
                 {
-                    var items = await Api.Items.Get(new ItemsFilter());
-                    var vms = items.Select(item => new ItemViewModel(item)).ToList();
-                    ItemsCache = vms;
-                    return vms;
+                    await this.Refresh();
                 }
             }
             catch (Exception ex)
@@ -51,6 +48,20 @@ namespace Selfwin.Selfoss
                 //TODO: report error to user
             }
             return ItemsCache;
+        }
+
+        public async Task Refresh()
+        {
+            try
+            {
+                var items = await Api.Items.Get(new ItemsFilter());
+                var vms = items.Select(item => new ItemViewModel(item)).ToList();
+                ItemsCache = vms;
+            }
+            catch (Exception ex)
+            {
+                //TODO: report error to user
+            }
         }
 
         public async Task<IList<ItemViewModel>> UnreadItems()
@@ -148,5 +159,6 @@ namespace Selfwin.Selfoss
             connStore.Values["username"] = conn.Username;
             connStore.Values["password"] = conn.Password;
         }
+
     }
 }

@@ -126,4 +126,12 @@
             </PivotItem>
         </Pivot>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Minimal">
+            <AppBarButton x:Name="Refresh" 
+                          Label="Refresh"
+                          micro:Message.Attach="Refresh"
+                          Icon="Refresh" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

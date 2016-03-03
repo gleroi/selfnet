@@ -1,12 +1,13 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using Selfwin.Selfoss;
+using Selfwin.Shell;
 
 namespace Selfwin.Items
 {
     public class ReadItemViewModel : Screen
     {
-        public ReadItemViewModel(SelfwinApp app, INavigationService navigation, ItemViewModel item)
+        public ReadItemViewModel(SelfwinApp app, IAppNavigation navigation, ItemViewModel item)
         {
             this.App = app;
             this.Navigation = navigation;
@@ -16,7 +17,7 @@ namespace Selfwin.Items
             }
         }
 
-        public INavigationService Navigation { get; }
+        public IAppNavigation Navigation { get; }
 
         public SelfwinApp App { get; }
 
@@ -54,9 +55,9 @@ namespace Selfwin.Items
 
         public void Close()
         {
-            if (this.Navigation != null && this.Navigation.CanGoBack)
+            if (this.Navigation != null && this.Navigation.CanBack)
             {
-                this.Navigation.GoBack();
+                this.Navigation.Back();
             }
         }
     }

@@ -1,6 +1,5 @@
-﻿using System.Linq;
+﻿using System.Threading.Tasks;
 using Caliburn.Micro;
-using Selfnet;
 using Selfwin.Selfoss;
 using Selfwin.Shell;
 
@@ -58,6 +57,11 @@ namespace Selfwin.Items
         protected override async void OnActivate()
         {
             base.OnActivate();
+            await ReadItems();
+        }
+
+        private async Task ReadItems()
+        {
             var items = await this.App.Items();
             this.Items = new BindableCollection<ItemViewModel>(items);
             var unread = await this.App.UnreadItems();
@@ -69,6 +73,12 @@ namespace Selfwin.Items
         public void OnItemSelected(ItemViewModel item)
         {
             this.Navigation.NavigateTo<ReadItemViewModel>(item);
+        }
+
+        public async void Refresh()
+        {
+            await this.App.Refresh();
+            await this.ReadItems();
         }
     }
 }
