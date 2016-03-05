@@ -32,18 +32,10 @@ namespace Selfwin.Items
 <html>
 <head>
 <meta name=""viewport"" content=""width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1"">
+<link rel=""stylesheet"" href=""ms-appx-web:///Items/read-item.css""
 </head>
 <body>
-<style>
-ul, ol {
-    margin: 0;
-    padding: 0;
-}
-li {
-    margin: 3px;
-    list-style: disc inside;
-}
-</style>";
+";
 
         public const string HtmlBodyEnd = @"
 </body>
