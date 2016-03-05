@@ -23,7 +23,9 @@ namespace Selfwin.Shell
 
         protected override void OnActivate()
         {
-            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += (s, a) =>
+            var navManager = Windows.UI.Core.SystemNavigationManager.GetForCurrentView();
+
+            navManager.BackRequested += (s, a) =>
             {
                 if (Navigation.CanBack)
                 {
@@ -31,6 +33,7 @@ namespace Selfwin.Shell
                     a.Handled = true;
                 }
             };
+
             this.AllItems();
         }
 
