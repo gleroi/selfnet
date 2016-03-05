@@ -8,45 +8,37 @@
     xmlns:micro="using:Caliburn.Micro"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ScrollViewer  Margin="15 5">
-            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <TextBlock Text="{Binding Parameter.Title}"
+        <TextBlock Text="{Binding Parameter.Title}"
                            Style="{StaticResource SubtitleTextBlockStyle}" />
 
-                <TextBlock Text="{Binding Parameter.SourceTitle}"
+        <TextBlock Text="{Binding Parameter.SourceTitle}"
                            HorizontalAlignment="Right"
                            Grid.Row="1" />
 
-                <WebView Loaded="OnWebViewLoaded"
+        <WebView Loaded="OnWebViewLoaded"
                          NavigationStarting="OnNavigationStarting"
-                           Grid.Row="2" />
-            </Grid>
-        </ScrollViewer>
+                         Grid.Row="2" />
+    </Grid>
 
+    <Page.BottomAppBar>
         <CommandBar Grid.Row="1" ClosedDisplayMode="Compact">
-                <AppBarButton Label="Favorite"
+            <AppBarButton Label="Favorite"
                               micro:Message.Attach="ToggleFavorite"
                               Icon="{Binding FavoriteSymbol}" />
-                <AppBarButton Label="Read" 
+            <AppBarButton Label="Read" 
                               micro:Message.Attach="ToggleRead"
                               Icon="{Binding ReadSymbol}" />
-                <AppBarButton Label="Close" 
+            <AppBarButton Label="Close" 
                               micro:Message.Attach="Close"
                               Icon="Cancel" />
         </CommandBar>
-
-    </Grid>
+    </Page.BottomAppBar>
 </Page>
