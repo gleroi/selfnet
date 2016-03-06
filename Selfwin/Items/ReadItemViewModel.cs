@@ -42,7 +42,22 @@ namespace Selfwin.Items
             get { return new SymbolIcon(this.Parameter.Unread ? Symbol.Read : Symbol.Mail); }
         }
 
-        public string Html => this.Parameter.Html;
+        public string Html
+        {
+            get
+            {
+                var settings = this.App.Settings();
+                var url = settings.SelfossOptions.Url();
+                var favicon = $"{url}/favicons/{ this.Parameter.SourceIcon}";
+
+                return "<div class=\"header\">" +
+                       $"<img class=\"favicon\" src=\"{favicon}\" />" +
+                       $"<h1 class=\"title\">{this.Parameter.Title}</h1>" +
+                       $"<h6 class=\"source-title\">{this.Parameter.SourceTitle}</h6>" +
+                       "</div>" +
+                       this.Parameter.Html;
+            }
+        }
 
         public void ToggleRead()
         {

@@ -24,6 +24,7 @@ namespace Selfwin.Selfoss
 
         public string SourceTitle => this.Parameter.SourceTitle;
 
+        public string SourceIcon => this.Parameter.Icon;
 
         public bool Unread
         {

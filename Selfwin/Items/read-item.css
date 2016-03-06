@@ -28,6 +28,7 @@ body {
     font: lighter 18px/27px 'SegoeUI', Arial, sans-serif; 
     color: black; 
     height: 100%; 
+    margin: 13px;
 }
 ol, ul {
     margin: 0;
@@ -48,4 +49,26 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+.header {
+    margin-bottom: 26px;
+}
+
+.favicon {
+}
+
+.title {
+    display:inline;
+    margin: 21px;
+    font-size: xx-large;
+}
+
+.source-title {
+    float: right;
+    font-size: medium;
+}
+
+.icon {
+    display: inline;
 }

@@ -1,4 +1,6 @@
-﻿namespace Selfnet
+﻿using System;
+
+namespace Selfnet
 {
     public class ConnectionOptions
     {
@@ -18,5 +20,11 @@
 
         public string Username { get; set; }
         public string Password { get; set; }
+
+        public string Url()
+        {
+            var uri = new UriBuilder(this.Scheme, this.Host, this.Port, this.Base);
+            return uri.Uri.ToString();
+        }
     }
 }
