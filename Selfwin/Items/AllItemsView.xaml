@@ -98,7 +98,7 @@
                     <Setter.Value>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Margin" Value="0 0" />
+                            <Setter Property="Margin" Value="0 0 12 0" />
                             <Setter Property="Padding" Value="0 0"></Setter>
                         </Style>
                     </Setter.Value>

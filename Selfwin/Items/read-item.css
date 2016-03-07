@@ -25,7 +25,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-    font: lighter 18px/27px 'SegoeUI', Arial, sans-serif; 
+    font: lighter 16px 'SegoeUI', Arial, sans-serif; 
     color: black; 
     height: 100%; 
     margin: 13px;
@@ -61,7 +61,7 @@ table {
 .title {
     display:inline;
     margin: 21px;
-    font-size: xx-large;
+    font-size: x-large;
 }
 
 .source-title {
