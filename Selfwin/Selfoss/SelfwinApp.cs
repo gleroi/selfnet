@@ -54,8 +54,9 @@ namespace Selfwin.Selfoss
         {
             try
             {
+                var settings = this.Settings();
                 var items = await Api.Items.Get(new ItemsFilter());
-                var vms = items.Select(item => new ItemViewModel(item)).ToList();
+                var vms = items.Select(item => new ItemViewModel(settings, item)).ToList();
                 ItemsCache = vms;
             }
             catch (Exception ex)

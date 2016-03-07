@@ -10,11 +10,19 @@ namespace Selfwin.Selfoss
     {
         public Item Parameter { get; set; }
 
-        public ItemViewModel(Item item)
+        public ItemViewModel(SelfWinSettings settings, Item item)
         {
             this.Parameter = item;
+            this.InitFavicon(settings, item.Icon);
             this.InitContent(this.Parameter);
         }
+
+        private void InitFavicon(SelfWinSettings settings, string icon)
+        {
+            var root = settings.SelfossOptions.Url();
+            this.SourceIconUrl = $"{root}/favicons/{icon}";
+        }
+
 
         private string title;
         public string Title
@@ -25,6 +33,8 @@ namespace Selfwin.Selfoss
         public string SourceTitle => this.Parameter.SourceTitle;
 
         public string SourceIcon => this.Parameter.Icon;
+
+        public string SourceIconUrl { get; private set; }
 
         public bool Unread
         {

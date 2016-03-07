@@ -23,6 +23,7 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
@@ -42,8 +43,15 @@
                         </i:Interaction.Behaviors>
                     </Rectangle>
 
+                    <Image Source="{Binding SourceIconUrl}"
+                           Grid.Column="1"
+                           Height="20"
+                           Width="20"
+                           Margin="0 0 7 0" />
+                    
+                    
                     <TextBlock x:Name="Title"
-                               Grid.Column="1"
+                               Grid.Column="2"
                                Text="{Binding Title}"
                                Style="{StaticResource ItemTitleStyle}">
                         <i:Interaction.Behaviors>
@@ -58,7 +66,7 @@
                     <TextBlock Text="{Binding Content}"
                                Style="{StaticResource BodyTextBlockStyle}"
                                TextWrapping="WrapWholeWords"
-                               Grid.Row="1" Grid.Column="1"
+                               Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
                                MaxLines="5">
                         <i:Interaction.Behaviors>
                             <ic:DataTriggerBehavior Binding="{Binding Unread}" Value="False"
@@ -72,7 +80,7 @@
 
                     <TextBlock Text="{Binding SourceTitle}"
                                HorizontalAlignment="Right"
-                               Grid.Row="2" Grid.Column="1">
+                               Grid.Row="2" Grid.Column="2">
                         <i:Interaction.Behaviors>
                             <ic:DataTriggerBehavior Binding="{Binding Unread}" Value="False"
                                                     ComparisonCondition="Equal">
@@ -82,7 +90,7 @@
                         </i:Interaction.Behaviors>
                     </TextBlock>
 
-                    <Rectangle Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                    <Rectangle Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                                Fill="{StaticResource SystemBaseLowBrush}"
                                Height="1" />
                 </Grid>

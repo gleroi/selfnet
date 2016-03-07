@@ -48,7 +48,7 @@ namespace Selfwin.Items
             {
                 var settings = this.App.Settings();
                 var url = settings.SelfossOptions.Url();
-                var favicon = $"{url}/favicons/{ this.Parameter.SourceIcon}";
+                var favicon = this.Parameter.SourceIconUrl;
 
                 return "<div class=\"header\">" +
                        $"<img class=\"favicon\" src=\"{favicon}\" />" +
