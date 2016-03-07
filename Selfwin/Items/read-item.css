@@ -25,7 +25,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-    font: lighter 16px 'SegoeUI', Arial, sans-serif; 
+    font: lighter 16px/23px 'SegoeUI', Arial, sans-serif; 
     color: black; 
     height: 100%; 
     margin: 13px;
