@@ -7,25 +7,38 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:micro="using:Caliburn.Micro"
     mc:Ignorable="d">
-
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <WebView Loaded="OnWebViewLoaded"
-                         NavigationStarting="OnNavigationStarting"
-                         Grid.Row="2" />
+                 NavigationStarting="OnNavigationStarting"
+                 Grid.Row="2" />
     </Grid>
 
     <Page.BottomAppBar>
         <CommandBar Grid.Row="1" ClosedDisplayMode="Compact">
+            <CommandBar.Resources>
+            </CommandBar.Resources>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Share"
+                              micro:Message.Attach="Share">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Label="Open in browser"
+                              micro:Message.Attach="OpenBrowser"
+                              Icon="NewWindow" />
+            </CommandBar.SecondaryCommands>
             <AppBarButton Label="Favorite"
-                              micro:Message.Attach="ToggleFavorite"
-                              Icon="{Binding FavoriteSymbol}" />
-            <AppBarButton Label="Read" 
-                              micro:Message.Attach="ToggleRead"
-                              Icon="{Binding ReadSymbol}" />
-            <AppBarButton Label="Close" 
-                              micro:Message.Attach="Close"
-                              Icon="Cancel" />
+                          micro:Message.Attach="ToggleFavorite"
+                          Icon="{Binding FavoriteSymbol}" />
+            <AppBarButton Label="Read"
+                          micro:Message.Attach="ToggleRead"
+                          Icon="{Binding ReadSymbol}" />
+            <AppBarButton Label="Close"
+                          micro:Message.Attach="Close"
+                          Icon="Cancel" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

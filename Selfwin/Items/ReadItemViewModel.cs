@@ -1,4 +1,8 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.System;
+using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using Selfwin.Selfoss;
 using Selfwin.Shell;
@@ -23,23 +27,34 @@ namespace Selfwin.Items
 
         public ItemViewModel Parameter { get; set; }
 
-        public SymbolIcon FavoriteSymbol
+        protected override void OnActivate()
         {
-            get { return new SymbolIcon(this.Parameter.Starred ? Symbol.UnFavorite : Symbol.Favorite); }
+            base.OnActivate();
+
+            var dataManager = DataTransferManager.GetForCurrentView();
+            dataManager.DataRequested += this.OnShareDataRequested;
         }
 
-        public void ToggleFavorite()
+        protected override void OnDeactivate(bool close)
         {
-            if (this.Parameter != null)
+            var dataManager = DataTransferManager.GetForCurrentView();
+            dataManager.DataRequested -= this.OnShareDataRequested;
+
+            base.OnDeactivate(close);
+        }
+
+        private void OnShareDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            if (!String.IsNullOrWhiteSpace(this.Parameter.Link))
             {
-                this.App.ChangeFavorite(this.Parameter, !this.Parameter.Starred);
+                args.Request.Data.SetWebLink(new Uri(this.Parameter.Link));
+                args.Request.Data.Properties.Title = Package.Current.DisplayName;
+                args.Request.Data.Properties.Description = $"Link to {this.Parameter.Title}";
             }
-            this.NotifyOfPropertyChange(nameof(FavoriteSymbol));
-        }
-
-        public SymbolIcon ReadSymbol
-        {
-            get { return new SymbolIcon(this.Parameter.Unread ? Symbol.Read : Symbol.Mail); }
+            else
+            {
+                args.Request.FailWithDisplayText("This item has no address to share");
+            }
         }
 
         public string Html
@@ -57,6 +72,56 @@ namespace Selfwin.Items
                        "</div>" +
                        this.Parameter.Html;
             }
+        }
+
+        public bool CanShare => this.Parameter != null && !String.IsNullOrWhiteSpace(this.Parameter.Link);
+
+        public void Share()
+        {
+            try
+            {
+                DataTransferManager.ShowShareUI();
+            }
+            catch (Exception ex)
+            {
+                //TODO: report error to user
+            }
+
+        }
+
+        public bool CanOpenBrowser => this.Parameter != null && !String.IsNullOrWhiteSpace(this.Parameter.Link);
+
+        public async void OpenBrowser()
+        {
+            var url = this.Parameter.Link;
+            try
+            {
+                var uri = new Uri(url);
+                await Launcher.LaunchUriAsync(uri);
+            }
+            catch (Exception ex)
+            {
+                //TODO: report error to user
+            }
+        }
+
+        public SymbolIcon FavoriteSymbol
+        {
+            get { return new SymbolIcon(this.Parameter.Starred ? Symbol.UnFavorite : Symbol.Favorite); }
+        }
+
+        public void ToggleFavorite()
+        {
+            if (this.Parameter != null)
+            {
+                this.App.ChangeFavorite(this.Parameter, !this.Parameter.Starred);
+            }
+            this.NotifyOfPropertyChange(nameof(FavoriteSymbol));
+        }
+
+        public SymbolIcon ReadSymbol
+        {
+            get { return new SymbolIcon(this.Parameter.Unread ? Symbol.Read : Symbol.Mail); }
         }
 
         public void ToggleRead()

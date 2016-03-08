@@ -36,6 +36,8 @@ namespace Selfwin.Selfoss
 
         public string SourceIconUrl { get; private set; }
 
+        public string Link => this.Parameter.Link;
+
         public bool Unread
         {
             get { return this.Parameter.Unread; }
@@ -79,6 +81,7 @@ namespace Selfwin.Selfoss
                 NotifyOfPropertyChange();
             }
         }
+
 
         private void InitContent(Item item)
         {
