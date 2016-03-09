@@ -32,9 +32,9 @@ namespace Selfwin
         /// </summary>
         public App()
         {
-            WindowsAppInitializer.InitializeAsync(
-                WindowsCollectors.Metadata |
-                WindowsCollectors.Session);
+            //WindowsAppInitializer.InitializeAsync(
+            //    WindowsCollectors.Metadata |
+            //    WindowsCollectors.Session);
             InitializeComponent();
         }
 
