@@ -101,11 +101,11 @@ namespace Selfwin.Settings
             }
         }
 
-        public void Save()
+        public async void Save()
         {
             try
             {
-                this.App.SaveSettings(this);
+                await this.App.SaveSettings(this);
                 this.ErrorMessage = null;
             }
             catch (Exception ex)

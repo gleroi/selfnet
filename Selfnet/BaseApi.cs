@@ -7,7 +7,7 @@ namespace Selfnet
 {
     public class BaseApi
     {
-        public ConnectionOptions Options { get; set; }
+        public ConnectionOptions Options { get; internal set; }
 
         internal readonly IHttpGateway Http;
 

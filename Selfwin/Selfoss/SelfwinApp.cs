@@ -25,11 +25,21 @@ namespace Selfwin.Selfoss
                     }
                     else
                     {
-                        _api.Options = settings.SelfossOptions;
+                        this.UpdateOptions(_api.Options, settings.SelfossOptions);
                     }
                 }
                 return _api;
             }
+        }
+
+        private void UpdateOptions(ConnectionOptions opts, ConnectionOptions app)
+        {
+            opts.Scheme = app.Scheme;
+            opts.Host = app.Host;
+            opts.Base = app.Base;
+            opts.Port = app.Port;
+            opts.Username = app.Username;
+            opts.Password = app.Password;
         }
 
         private List<ItemViewModel> ItemsCache = new List<ItemViewModel>();
@@ -111,11 +121,22 @@ namespace Selfwin.Selfoss
             return settings;
         }
 
-        public void SaveSettings(SettingsViewModel settings)
+        public async Task SaveSettings(SettingsViewModel settings)
         {
             var newSettings = new SelfWinSettings(settings.Url, settings.Port, settings.Username, settings.Password);
 
             SaveToApplicationData(newSettings);
+
+            await ValidateSettings();
+        }
+
+        private async Task ValidateSettings()
+        {
+            var authenticated = await this.Api.Login();
+            if (!authenticated)
+            {
+                throw new SelfWinException("Could not authenticate");
+            }
         }
 
         private void SaveToApplicationData(SelfWinSettings newSettings)
