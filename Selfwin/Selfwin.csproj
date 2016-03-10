@@ -109,7 +109,7 @@
       <DependentUpon>ReadItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Items\ReadItemViewModel.cs" />
-    <Compile Include="Selfoss\ItemViewModel.cs" />
+    <Compile Include="Items\ItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Selfoss\SelfwinApp.cs" />
     <Compile Include="Settings\SettingsView.xaml.cs">

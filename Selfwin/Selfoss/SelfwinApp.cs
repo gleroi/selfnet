@@ -1,5 +1,6 @@
 ﻿using Selfnet;
 using Selfwin.Core;
+using Selfwin.Items;
 
 namespace Selfwin.Selfoss
 {

@@ -16,11 +16,13 @@ namespace Selfwin.BackgroundTasks
             var defer = taskInstance.GetDeferral();
             try
             {
-                var status = await this.GetSelfossUnreadCount();
+                var app = new SelfwinApp();
+
+                var status = await this.GetSelfossUnreadCount(app);
 
                 if (status != 0)
                 {
-                    this.UpdateTileBadge(status);
+                    this.UpdateTileBadge(app, status);
                 }
             }
             finally
@@ -29,17 +31,13 @@ namespace Selfwin.BackgroundTasks
             }
         }
 
-        private void UpdateTileBadge(int status)
+        private void UpdateTileBadge(SelfwinApp app, int status)
         {
-            var badgeContent = new BadgeNumericNotificationContent((uint)status);
-            var badgeNotification = new BadgeNotification(badgeContent.GetXml());
-            var updater = BadgeUpdateManager.CreateBadgeUpdaterForApplication();
-            updater.Update(badgeNotification);
+            app.UpdateTile(status);
         }
 
-        private async Task<int> GetSelfossUnreadCount()
+        private async Task<int> GetSelfossUnreadCount(SelfwinApp app)
         {
-            var app = new SelfwinApp();
             var settings = app.Settings();
             var api = new SelfossApi(settings.SelfossOptions);
             var stats = (await api.Sources.Stats()).ToList();

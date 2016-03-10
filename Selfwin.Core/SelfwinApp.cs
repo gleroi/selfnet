@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI.Notifications;
+using NotificationsExtensions.Badges;
 using Selfnet;
 
 namespace Selfwin.Core
@@ -81,8 +83,21 @@ namespace Selfwin.Core
 
         public async Task<IList<IItemViewModel>> UnreadItems()
         {
-            var items = await Items();
-            return items.Where(i => i.Unread).ToList();
+            try
+            {
+                var settings = this.Settings();
+                var items = await Api.Items.Get(new ItemsFilter()
+                {
+                    ItemStatus = Status.Unread,
+                });
+                var vms = items.Select(item => this.CreateItemVm(settings, item)).ToList();
+                return vms;
+            }
+            catch (Exception ex)
+            {
+                //TODO: report error to user
+                return new List<IItemViewModel>();
+            }
         }
 
         public async Task<IList<IItemViewModel>> StarredItems()
@@ -186,5 +201,12 @@ namespace Selfwin.Core
             connStore.Values["password"] = conn.Password;
         }
 
+        public void UpdateTile(int status)
+        {
+            var badgeContent = new BadgeNumericNotificationContent((uint)status);
+            var badgeNotification = new BadgeNotification(badgeContent.GetXml());
+            var updater = BadgeUpdateManager.CreateBadgeUpdaterForApplication();
+            updater.Update(badgeNotification);
+        }
     }
 }
