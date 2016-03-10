@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Selfwin.Selfoss
+namespace Selfwin.Core
 {
     public class SelfWinException : Exception
     {

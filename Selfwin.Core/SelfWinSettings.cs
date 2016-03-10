@@ -1,7 +1,7 @@
 ﻿using System;
 using Selfnet;
 
-namespace Selfwin.Selfoss
+namespace Selfwin.Core
 {
     public class SelfWinSettings
     {

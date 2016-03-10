@@ -3,10 +3,11 @@ using System.Linq;
 using Caliburn.Micro;
 using HtmlAgilityPack;
 using Selfnet;
+using Selfwin.Core;
 
-namespace Selfwin.Selfoss
+namespace Selfwin.Items
 {
-    public class ItemViewModel : PropertyChangedBase
+    public class ItemViewModel : PropertyChangedBase, IItemViewModel
     {
         public Item Parameter { get; set; }
 
@@ -37,6 +38,8 @@ namespace Selfwin.Selfoss
         public string SourceIconUrl { get; private set; }
 
         public string Link => this.Parameter.Link;
+
+        public DateTime PublishedAt => this.Parameter.PublishedAt;
 
         public bool Unread
         {

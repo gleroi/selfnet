@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
+using Windows.Foundation.Metadata;
 using Windows.UI;
-using Windows.UI.Core;
 using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Caliburn.Micro;
-using Microsoft.ApplicationInsights;
 using Selfwin.Items;
 using Selfwin.Selfoss;
 using Selfwin.Settings;
@@ -44,12 +39,12 @@ namespace Selfwin
         {
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
-            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
             {
-                var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-                statusBar.BackgroundColor = (Color)Current.Resources["SystemAccentColor"];
+                var statusBar = StatusBar.GetForCurrentView();
+                statusBar.BackgroundColor = (Color) Current.Resources["SystemAccentColor"];
                 statusBar.BackgroundOpacity = 1;
-                statusBar.ForegroundColor = (Color)Current.Resources["SystemAltHighColor"];
+                statusBar.ForegroundColor = (Color) Current.Resources["SystemAltHighColor"];
             }
 
             container = new WinRTContainer();
@@ -87,7 +82,30 @@ namespace Selfwin
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            this.DisplayRootViewFor<ShellViewModel>();
+            DisplayRootViewFor<ShellViewModel>();
+
+            RegisterBackgroundTasks();
+        }
+
+        private const string tileBadgeUpdaterTaskName = "TileBadgeUpdaterTask";
+        private const string tileBadgeUpdaterEntryPoint = "Selfwin.BackgroundTasks.TileBadgeUpdater";
+
+        private async void RegisterBackgroundTasks()
+        {
+            var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
+            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            {
+                if (task.Value.Name == tileBadgeUpdaterTaskName)
+                {
+                    task.Value.Unregister(true);
+                }
+            }
+
+            var taskBuilder = new BackgroundTaskBuilder();
+            taskBuilder.Name = tileBadgeUpdaterTaskName;
+            taskBuilder.TaskEntryPoint = tileBadgeUpdaterEntryPoint;
+            taskBuilder.SetTrigger(new TimeTrigger(15, false));
+            var registration = taskBuilder.Register();
         }
     }
 }

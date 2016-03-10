@@ -112,8 +112,6 @@
     <Compile Include="Selfoss\ItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Selfoss\SelfwinApp.cs" />
-    <Compile Include="Selfoss\SelfWinException.cs" />
-    <Compile Include="Selfoss\SelfWinSettings.cs" />
     <Compile Include="Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -239,6 +237,14 @@
     <ProjectReference Include="..\Selfnet\Selfnet.csproj">
       <Project>{10bf9b3a-44d5-446c-939e-615efe448643}</Project>
       <Name>Selfnet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Selfwin.BackgroundTasks\Selfwin.BackgroundTasks.csproj">
+      <Project>{2376d6cb-a2e1-414d-b3d9-2b4094e36080}</Project>
+      <Name>Selfwin.BackgroundTasks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Selfwin.Core\Selfwin.Core.csproj">
+      <Project>{82de971b-3be0-468f-a2da-2fb10a36014b}</Project>
+      <Name>Selfwin.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

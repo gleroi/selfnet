@@ -1,11 +1,12 @@
 ﻿using System;
 using Caliburn.Micro;
 using Selfnet;
-using Selfwin.Selfoss;
+using Selfwin.Core;
+using SelfwinApp = Selfwin.Selfoss.SelfwinApp;
 
 namespace Selfwin.Settings
 {
-    public class SettingsViewModel : Screen
+    public class SettingsViewModel : Screen, ISettingsViewModel
     {
         public SettingsViewModel(SelfwinApp app)
         {

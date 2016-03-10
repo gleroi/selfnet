@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Caliburn.Micro;
+using Selfwin.Core;
 using Selfwin.Selfoss;
 using Selfwin.Shell;
+using SelfwinApp = Selfwin.Selfoss.SelfwinApp;
 
 namespace Selfwin.Items
 {
@@ -17,9 +19,9 @@ namespace Selfwin.Items
         }
 
 
-        private BindableCollection<ItemViewModel> _items;
+        private BindableCollection<IItemViewModel> _items;
 
-        public BindableCollection<ItemViewModel> Items
+        public BindableCollection<IItemViewModel> Items
         {
             get { return _items; }
             set
@@ -30,8 +32,8 @@ namespace Selfwin.Items
             }
         }
 
-        private BindableCollection<ItemViewModel> _unreadItems;
-        public BindableCollection<ItemViewModel> UnreadItems
+        private BindableCollection<IItemViewModel> _unreadItems;
+        public BindableCollection<IItemViewModel> UnreadItems
         {
             get { return _unreadItems; }
             set
@@ -42,8 +44,8 @@ namespace Selfwin.Items
             }
         }
 
-        private BindableCollection<ItemViewModel> _starredItems;
-        public BindableCollection<ItemViewModel> StarredItems
+        private BindableCollection<IItemViewModel> _starredItems;
+        public BindableCollection<IItemViewModel> StarredItems
         {
             get { return _starredItems; }
             set
@@ -63,11 +65,11 @@ namespace Selfwin.Items
         private async Task ReadItems()
         {
             var items = await this.App.Items();
-            this.Items = new BindableCollection<ItemViewModel>(items);
+            this.Items = new BindableCollection<IItemViewModel>(items);
             var unread = await this.App.UnreadItems();
-            this.UnreadItems = new BindableCollection<ItemViewModel>(unread);
+            this.UnreadItems = new BindableCollection<IItemViewModel>(unread);
             var starred = await this.App.StarredItems();
-            this.StarredItems = new BindableCollection<ItemViewModel>(starred);
+            this.StarredItems = new BindableCollection<IItemViewModel>(starred);
         }
 
         public void OnItemSelected(ItemViewModel item)
