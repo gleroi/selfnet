@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
-using Windows.UI.Notifications;
-using NotificationsExtensions.Badges;
 using Selfnet;
 using Selfwin.Core;
 
@@ -24,6 +22,10 @@ namespace Selfwin.BackgroundTasks
                 {
                     this.UpdateTileBadge(app, status);
                 }
+            }
+            catch (Exception ex)
+            {
+                //TODO: report error to user.
             }
             finally
             {

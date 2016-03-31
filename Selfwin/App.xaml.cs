@@ -4,9 +4,12 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation.Metadata;
+using Windows.Storage;
 using Windows.UI;
+using Windows.UI.Notifications;
 using Windows.UI.ViewManagement;
 using Caliburn.Micro;
+using NotificationsExtensions.Toasts;
 using Selfwin.Items;
 using Selfwin.Selfoss;
 using Selfwin.Settings;
@@ -27,10 +30,8 @@ namespace Selfwin
         /// </summary>
         public App()
         {
-            //WindowsAppInitializer.InitializeAsync(
-            //    WindowsCollectors.Metadata |
-            //    WindowsCollectors.Session);
             InitializeComponent();
+            Microsoft.HockeyApp.HockeyClient.Current.Configure("b5a3bbefabf640059226e33cf17a19f8");
         }
 
         private WinRTContainer container;
@@ -85,6 +86,29 @@ namespace Selfwin
             DisplayRootViewFor<ShellViewModel>();
 
             RegisterBackgroundTasks();
+
+            //ListenRoamingSettingsChanged();
+        }
+
+        private void ListenRoamingSettingsChanged()
+        {
+            var appData = ApplicationData.Current;
+            appData.DataChanged += this.AppDataOnDataChanged;
+        }
+
+        private void AppDataOnDataChanged(ApplicationData sender, object args)
+        {
+            var content = new ToastContent()
+            {
+                Visual = new ToastVisual()
+                {
+                    TitleText = new ToastText() { Text = "Selfwin" },
+                    BodyTextLine1 = new ToastText() { Text = "Settings have roamed to your device" },
+                },
+            };
+            var toast = new ToastNotification(content.GetXml());
+            var notifier = ToastNotificationManager.CreateToastNotifier();
+            notifier.Show(toast);
         }
 
         private const string tileBadgeUpdaterTaskName = "TileBadgeUpdaterTask";
@@ -93,19 +117,23 @@ namespace Selfwin
         private async void RegisterBackgroundTasks()
         {
             var backgroundAccessStatus = await BackgroundExecutionManager.RequestAccessAsync();
-            foreach (var task in BackgroundTaskRegistration.AllTasks)
+            if (backgroundAccessStatus == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
+                backgroundAccessStatus == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity)
             {
-                if (task.Value.Name == tileBadgeUpdaterTaskName)
+                foreach (var task in BackgroundTaskRegistration.AllTasks)
                 {
-                    task.Value.Unregister(true);
+                    if (task.Value.Name == tileBadgeUpdaterTaskName)
+                    {
+                        task.Value.Unregister(true);
+                    }
                 }
-            }
 
-            var taskBuilder = new BackgroundTaskBuilder();
-            taskBuilder.Name = tileBadgeUpdaterTaskName;
-            taskBuilder.TaskEntryPoint = tileBadgeUpdaterEntryPoint;
-            taskBuilder.SetTrigger(new TimeTrigger(15, false));
-            var registration = taskBuilder.Register();
+                var taskBuilder = new BackgroundTaskBuilder();
+                taskBuilder.Name = tileBadgeUpdaterTaskName;
+                taskBuilder.TaskEntryPoint = tileBadgeUpdaterEntryPoint;
+                taskBuilder.SetTrigger(new TimeTrigger(15, false));
+                var registration = taskBuilder.Register();
+            }
         }
     }
 }

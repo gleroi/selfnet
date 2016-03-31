@@ -11,8 +11,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <WebView Loaded="OnWebViewLoaded"
-                 NavigationStarting="OnNavigationStarting"
-                 Grid.Row="2" />
+                 NavigationStarting="OnNavigationStarting" />
     </Grid>
 
     <Page.BottomAppBar>

@@ -91,6 +91,7 @@ namespace Selfwin.Core
                     ItemStatus = Status.Unread,
                 });
                 var vms = items.Select(item => this.CreateItemVm(settings, item)).ToList();
+                this.UpdateTile(vms.Count);
                 return vms;
             }
             catch (Exception ex)
@@ -167,7 +168,7 @@ namespace Selfwin.Core
         private static ApplicationDataContainer SettingsStore()
         {
             var applicationData = ApplicationData.Current;
-            var store = applicationData.LocalSettings;
+            var store = applicationData.RoamingSettings;
             return store;
         }
 
