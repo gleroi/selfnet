@@ -1,1 +1,1 @@
-C:\Projets\Selfnet\Selfwin\AppPackages\Selfwin_1.1.2.0\Selfwin_1.1.2.0_x86_x64_arm.appxbundle
+C:\Projets\Selfnet\Selfwin\AppPackages\Selfwin_1.1.3.0\Selfwin_1.1.3.0_x86_x64_arm.appxbundle

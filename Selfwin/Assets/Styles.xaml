@@ -5,7 +5,7 @@
 
     <SolidColorBrush x:Key="SystemAccentBrush" Color="{StaticResource SystemAccentColor}" />
     <SolidColorBrush x:Key="SystemBaseLowBrush" Color="{StaticResource SystemBaseLowColor}" />
-
+    <SolidColorBrush x:Key="SystemBaseMediumNrush" Color="{StaticResource SystemBaseMediumColor}" />
 
     <Style x:Key="ItemTitleStyle"
            BasedOn="{StaticResource BaseTextBlockStyle}"
@@ -18,14 +18,14 @@
            BasedOn="{StaticResource NavigationBackButtonNormalStyle}"
            TargetType="Button">
         <Setter Property="Foreground" Value="White" />
-        <Setter Property="Background" Value="{StaticResource SystemAccentColor}" />
+        <Setter Property="Background" Value="{StaticResource SystemAccentBrush}" />
     </Style>
 
     <Style x:Key="MenuItemStyle"
            TargetType="Button">
         <Setter Property="Margin" Value="7 11" />
         <Setter Property="Foreground" Value="White" />
-        <Setter Property="Background" Value="{StaticResource SystemAccentColor}" />
+        <Setter Property="Background" Value="{StaticResource SystemAccentBrush}" />
         <Setter Property="FontSize" Value="24" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
