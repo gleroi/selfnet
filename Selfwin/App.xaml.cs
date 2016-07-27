@@ -16,6 +16,7 @@ using Selfwin.Settings;
 using Selfwin.Shell;
 using Selfwin.Sources;
 using Selfwin.Tags;
+using Microsoft.HockeyApp;
 
 namespace Selfwin
 {

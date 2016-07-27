@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -33,6 +34,9 @@ namespace Selfnet
         {
             var http = new HttpClient();
             var req = new HttpRequestMessage(HttpMethod.Post, url);
+            req.Content = new FormUrlEncodedContent(new[] {
+                new KeyValuePair<string, string>("ajax", "true"),
+            });
             var resp = await http.SendAsync(req);
             await this.EnsureSuccessOrThrow(resp);
             var str = await resp.Content.ReadAsStringAsync();
@@ -45,6 +49,7 @@ namespace Selfnet
             var http = new HttpClient();
             var req = new HttpRequestMessage(HttpMethod.Post, url);
             var content = new FormUrlEncodedContent(parameters);
+            
             req.Content = content;
             var resp = await http.SendAsync(req);
             await this.EnsureSuccessOrThrow(resp);
