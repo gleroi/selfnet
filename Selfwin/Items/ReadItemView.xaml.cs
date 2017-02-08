@@ -38,6 +38,7 @@ namespace Selfwin.Items
 ";
 
         public const string HtmlBodyEnd = @"
+<script src=""ms-appx-web:////Items/read-item.js"" type=""text/javascript""  />
 </body>
 </html>";
 

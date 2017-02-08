@@ -185,6 +185,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Items\read-item.css" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Items\read-item.js" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
